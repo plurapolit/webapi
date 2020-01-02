@@ -16,6 +16,7 @@ gem 'webpacker', '~> 4.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'pry-byebug'
   gem 'rails_best_practices'
   gem 'rubocop', require: false
 end
@@ -32,6 +33,7 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
