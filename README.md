@@ -1,24 +1,29 @@
-# README
+# PluraPolit Web API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Solargraph Setup (for VSCode)
+1. Install "Ruby" and "Ruby Solargraph" VSCode extensions
+2. Add `gem 'solargraph', group: :development` to the Gemfile
+3. Run `bundle install`
+4. Run `solargraph config`
+5. Change `require: []` to the following in `solargraph.yml`
+```
+require:
+- actioncable
+- actionmailer
+- actionpack
+- actionview
+- activejob
+- activemodel
+- activerecord
+- activestorage
+- activesupport
+```
 
-Things you may want to cover:
+6. run `solargraph bundle`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Before Pushing to GitHub
+1. Have you written tests for the new feature?
+2. Run `rspec` --> All tests should pass
+3. Run `rubocop` --> There should be no offenses
+4. Run `rails_best_practices` --> There should be no offenses
+5. Run `brakeman` --> There should be no offenses
