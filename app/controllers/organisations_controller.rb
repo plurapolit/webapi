@@ -6,7 +6,10 @@ class OrganisationsController < ApplicationController
     render json: @organisation
   end
 
-  def index; end
+  def index
+    @organisations = Organisation.all
+    render json: @organisations
+  end
 
   def new; end
 
