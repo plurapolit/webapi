@@ -4,6 +4,10 @@ Layout/LineLength:
 Style/Documentation:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+
 AllCops:
   Exclude:
     - 'node_modules/**/*'
