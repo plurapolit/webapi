@@ -35,6 +35,6 @@ test:
 
 production:
   <<: *default
-  database: webapi_production
-  username: webapi
+  database: webapi_development
+  username: postgres
   password: <%= ENV['WEBAPI_DATABASE_PASSWORD'] %>
