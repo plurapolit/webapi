@@ -19,19 +19,24 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with :truncation
   end
 
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
+  config.before(:each) do |test|
+    DatabaseCleaner.strategy = if test.metadata[:js]
+                                 :truncation
+                               else
+                                 :transaction
+                               end
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
   config.infer_spec_type_from_file_location!
