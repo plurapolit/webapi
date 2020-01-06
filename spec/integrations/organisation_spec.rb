@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'organisation' do
+RSpec.describe 'Organisation' do
   let(:organisation) { create :organisation }
 
   it 'has a name' do

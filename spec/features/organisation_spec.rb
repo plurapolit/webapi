@@ -8,10 +8,12 @@ RSpec.describe 'Organisation Features', type: :feature do
     visit '/organisations'
   end
 
-  it 'shows all organisations' do
-    create(:organisation, name: 'Second Org')
-    visit '/organisations'
-    expect(page).to have_content('Test Organisation').and have_content('Second Org')
+  context 'when visiting the index page' do
+    it 'shows all organisations' do
+      create(:organisation, name: 'Second Org')
+      visit '/organisations'
+      expect(page).to have_content('Test Organisation').and have_content('Second Org')
+    end
   end
 
   it 'can be created' do
@@ -29,7 +31,8 @@ RSpec.describe 'Organisation Features', type: :feature do
     expect(page).to have_content('Organisation was successfully updated')
   end
 
-  it 'can be deleted', js: true do
+  it 'can be deleted' do
+    binding.pry
     accept_confirm do
       click_on 'Delete'
     end

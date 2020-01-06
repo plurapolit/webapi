@@ -35,6 +35,13 @@ jobs:
       run: |
         sudo apt-get -yqq install libpq-dev
 
+    - name: Install headless chrome
+      run: /
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+        echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+        apt-get install --no-install-recommends -y build-essential google-chrome-stable libxml2-dev libxslt-dev nodejs
+        rm -rf /var/lib/apt/lists/*
+
     - name: Build App
       env:
         PGHOST: localhost
