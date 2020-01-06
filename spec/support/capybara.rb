@@ -8,7 +8,7 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu disable-dev-shm-usage no-sandbox window-size=1400,1400] }
+    chromeOptions: { args: %w[headless disable-gpu disable-dev-shm-usage no-sandbox window-size=400,400] }
   )
 
   Capybara::Selenium::Driver.new app,
@@ -16,10 +16,10 @@ Capybara.register_driver :headless_chrome do |app|
                                  desired_capabilities: capabilities
 end
 
-Capybara.javascript_driver = :headless_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
   config.before(:each, type: :system, js: true) do
-    driven_by :headless_chrome
+    driven_by :selenium_chrome_headless
   end
 end
