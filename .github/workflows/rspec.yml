@@ -34,7 +34,22 @@ jobs:
     - name: Install PostgreSQL 11 client
       run: |
         sudo apt-get -yqq install libpq-dev
-
+  
+    - name: Install node and yarn
+      run: |
+        sudo apt-get install -y nodejs
+        sudo npm install -g yarn
+        sudo yarn install --check-files
+        sudo chown -R $USER:$GROUP ~/.npm
+        sudo chown -R $USER:$GROUP ~/.config
+ 
+    - name: Install headless chrome
+      run: |
+        sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update -y
+        sudo apt-get install --no-install-recommends -y google-chrome-stable
+     
     - name: Build App
       env:
         PGHOST: localhost
@@ -45,6 +60,13 @@ jobs:
         gem install bundler
         bundle install --jobs 4 --retry 3
         bin/rails db:setup
+
+    - name: Compiling webpacker assets
+      env:
+        RAILS_ENV: test
+      run: |
+        source $HOME/.rvm/scripts/rvm
+        bin/rails webpacker:compile
 
     - name: Run Tests
       env:
