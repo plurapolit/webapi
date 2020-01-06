@@ -64,9 +64,9 @@ Rails.application.configure do
   config.webpacker.check_yarn_integrity = false
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
+    Bullet.alert = false
     Bullet.console = true
     Bullet.add_footer = true
-    Bullet.raise = true
+    Bullet.raise = false
   end
 end
