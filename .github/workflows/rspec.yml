@@ -60,7 +60,8 @@ jobs:
 
     - name: Compiling webpacker assets
       run: |
-        bin/rails webpacker:compile -e test
+        source $HOME/.rvm/scripts/rvm
+        RAILS_ENV=test bin/rails webpacker:compile
 
     - name: Run Tests
       env:
