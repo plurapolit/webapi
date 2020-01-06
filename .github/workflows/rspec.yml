@@ -52,11 +52,11 @@ jobs:
         PGHOST: localhost
         PGUSER: postgres
         RAILS_ENV: test
-        run: |
-          source $HOME/.rvm/scripts/rvm
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          bin/rails db:setup
+      run: |
+        source $HOME/.rvm/scripts/rvm
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bin/rails db:setup
 
     - name: Compiling webpacker assets
       run: |
