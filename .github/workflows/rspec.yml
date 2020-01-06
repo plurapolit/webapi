@@ -40,6 +40,8 @@ jobs:
         sudo apt-get install -y nodejs
         sudo npm install -g yarn
         sudo yarn install --check-files
+        sudo chown -R $USER:$GROUP ~/.npm
+        sudo chown -R $USER:$GROUP ~/.config
  
     - name: Install headless chrome
       run: |
