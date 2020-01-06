@@ -34,6 +34,12 @@ jobs:
     - name: Install PostgreSQL 11 client
       run: |
         sudo apt-get -yqq install libpq-dev
+  
+    - name: Install node and yarn
+      run: |
+        apt-get install -y nodejs
+        npm install -g yarn
+        yarn install --check-files
 
     - name: Install headless chrome
       run: |
