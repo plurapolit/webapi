@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class OrganisationsController < ApplicationController
-  before_action :set_organisation, only: %i[show edit update destroy]
+  before_action :set_organisation, only: %i[edit update destroy]
 
   def index
-    @organisations = Organisation.all
+    @organisations = Organisation.all.includes([:avatar_attachment])
   end
-
-  def show; end
 
   def new
     @organisation = Organisation.new
@@ -19,7 +17,7 @@ class OrganisationsController < ApplicationController
     @organisation = Organisation.new(organisation_params)
 
     if @organisation.save
-      redirect_to @organisation, notice: 'Organisation was successfully created.'
+      redirect_to organisations_path, notice: 'Organisation was successfully created.'
     else
       render :new
     end
@@ -27,7 +25,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to @organisation, notice: 'Organisation was successfully updated.'
+      redirect_to organisations_path, notice: 'Organisation was successfully updated.'
     else
       render :edit
     end
@@ -35,7 +33,7 @@ class OrganisationsController < ApplicationController
 
   def destroy
     @organisation.destroy
-    redirect_to organisations_url, notice: 'Organisation was successfully destroyed.'
+    redirect_to organisations_path, notice: 'Organisation was successfully destroyed.'
   end
 
   private
@@ -45,6 +43,6 @@ class OrganisationsController < ApplicationController
   end
 
   def organisation_params
-    params.require(:organisation).permit(:name, :description)
+    params.require(:organisation).permit(:name, :description, :avatar)
   end
 end
