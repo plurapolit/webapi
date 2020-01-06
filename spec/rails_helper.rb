@@ -21,24 +21,6 @@ end
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
-  config.before(:each) do |test|
-    DatabaseCleaner.strategy = if test.metadata[:js]
-                                 :truncation
-                               else
-                                 :transaction
-                               end
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
-
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.example_status_persistence_file_path = 'rspec_failures.txt'
