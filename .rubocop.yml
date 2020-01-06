@@ -17,3 +17,4 @@ AllCops:
     - '.git/**/*'
     - 'bin/**/*'
     - 'db/schema.rb'
+    - 'db/migrate/**/*'

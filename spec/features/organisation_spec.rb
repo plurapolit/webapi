@@ -31,8 +31,7 @@ RSpec.describe 'Organisation Features', type: :feature do
     expect(page).to have_content('Organisation was successfully updated')
   end
 
-  it 'can be deleted' do
-    binding.pry
+  it 'can be deleted', js: true do
     accept_confirm do
       click_on 'Delete'
     end
