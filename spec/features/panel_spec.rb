@@ -23,7 +23,7 @@ RSpec.describe 'Panel Features', type: :feature do
     fill_in 'panel_title', with: 'New Title'
     fill_in 'panel_short_title', with: 'New Short Title'
     fill_in 'panel_description', with: 'New panel Description'
-    fill_in 'panel_category_id', with: category.id
+    select category.name, from: 'panel_category_id'
     click_on 'Create Panel'
     expect(page).to have_content('Panel was successfully created')
   end

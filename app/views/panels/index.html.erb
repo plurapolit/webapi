@@ -18,8 +18,8 @@
   <tbody>
     <% @panels.each do |panel| %>
       <tr>
-        <td><%= link_to panel.id, panel_path(panel) %></td>
-        <td><%= panel.category_id %></td>
+        <td><%= panel.id %></td>
+        <td><%= panel.category_name %></td>
         <td><%= panel.title %></td>
         <td><%= panel.short_title %></td>
         <td><%= panel.description %></td>
