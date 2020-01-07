@@ -43,6 +43,6 @@ class PanelsController < ApplicationController
   end
 
   def panel_params
-    params.require(:panel).permit(:category_id, :title, :short_title, :description)
+    params.require(:panel).permit(:category_id, :title, :short_title, :description, :avatar)
   end
 end

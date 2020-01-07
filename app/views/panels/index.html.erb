@@ -10,6 +10,7 @@
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:short_title) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:avatar) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -22,6 +23,11 @@
         <td><%= panel.title %></td>
         <td><%= panel.short_title %></td>
         <td><%= panel.description %></td>
+        <% if panel.avatar.attached? %>
+          <td><%= image_tag panel.avatar, height: '50' %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%=l panel.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
