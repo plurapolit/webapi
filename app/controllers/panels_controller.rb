@@ -2,7 +2,6 @@
 
 class PanelsController < ApplicationController
   before_action :set_panel, only: %i[edit update destroy]
-  before_action :set_category_collection, only: %i[new edit]
 
   def index
     @panels = Panel.all
@@ -41,10 +40,6 @@ class PanelsController < ApplicationController
 
   def set_panel
     @panel = Panel.find(params[:id])
-  end
-
-  def set_category_collection
-    @category_collection = Category.all
   end
 
   def panel_params

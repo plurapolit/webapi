@@ -16,13 +16,6 @@ RSpec.describe 'Category Features', type: :feature do
     end
   end
 
-  it 'can be created' do
-    click_on 'New'
-    fill_in 'category_name', with: 'New category'
-    click_on 'Create Category'
-    expect(page).to have_content('Category was successfully created')
-  end
-
   it 'can be edited' do
     click_on 'Edit'
     fill_in 'category_name', with: 'New category edited'
@@ -35,5 +28,37 @@ RSpec.describe 'Category Features', type: :feature do
       click_on 'Delete'
     end
     expect(page).to have_content('Category was successfully destroyed')
+  end
+
+  context 'when creating' do
+    before do
+      click_on 'New'
+      fill_in 'category_name', with: 'New Name'
+    end
+
+    it 'successfully does create' do
+      click_on 'Create Category'
+      expect(page).to have_content('Category was successfully created')
+    end
+
+    context 'when uploading an attachment' do
+      it 'allows pngs' do
+        attach_file('category_avatar', file_fixture('sample.png'))
+        click_on 'Create Category'
+        expect(page).to have_content('Category was successfully created')
+      end
+
+      it 'allows jpgs' do
+        attach_file('category_avatar', file_fixture('sample.jpg'))
+        click_on 'Create Category'
+        expect(page).to have_content('Category was successfully created')
+      end
+
+      it 'does not allow other filetypes (.txt)' do
+        attach_file('category_avatar', file_fixture('sample.txt'))
+        click_on 'Create Category'
+        expect(page).to have_content('Avatar is not a valid image type')
+      end
+    end
   end
 end

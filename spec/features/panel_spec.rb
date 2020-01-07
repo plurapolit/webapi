@@ -18,16 +18,6 @@ RSpec.describe 'Panel Features', type: :feature do
     end
   end
 
-  it 'can be created' do
-    click_on 'New'
-    fill_in 'panel_title', with: 'New Title'
-    fill_in 'panel_short_title', with: 'New Short Title'
-    fill_in 'panel_description', with: 'New panel Description'
-    select category.name, from: 'panel_category_id'
-    click_on 'Create Panel'
-    expect(page).to have_content('Panel was successfully created')
-  end
-
   it 'can be edited' do
     click_on 'Edit'
     fill_in 'panel_title', with: 'New panel edited'
@@ -40,5 +30,40 @@ RSpec.describe 'Panel Features', type: :feature do
       click_on 'Delete'
     end
     expect(page).to have_content('Panel was successfully destroyed')
+  end
+
+  context 'when creating' do
+    before do
+      click_on 'New'
+      fill_in 'panel_title', with: 'New Title'
+      fill_in 'panel_short_title', with: 'New Short Title'
+      fill_in 'panel_description', with: 'New panel Description'
+      select category.name, from: 'panel_category_id'
+    end
+
+    it 'successfully does create' do
+      click_on 'Create Panel'
+      expect(page).to have_content('Panel was successfully created')
+    end
+
+    context 'when uploading an attachment' do
+      it 'allows pngs' do
+        attach_file('panel_avatar', file_fixture('sample.png'))
+        click_on 'Create Panel'
+        expect(page).to have_content('Panel was successfully created')
+      end
+
+      it 'allows jpgs' do
+        attach_file('panel_avatar', file_fixture('sample.jpg'))
+        click_on 'Create Panel'
+        expect(page).to have_content('Panel was successfully created')
+      end
+
+      it 'does not allow other filetypes (.txt)' do
+        attach_file('panel_avatar', file_fixture('sample.txt'))
+        click_on 'Create Panel'
+        expect(page).to have_content('Avatar is not a valid image type')
+      end
+    end
   end
 end
