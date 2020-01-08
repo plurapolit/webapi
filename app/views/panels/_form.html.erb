@@ -1,13 +1,13 @@
-<%= form_for organisation, :html => { :class => "form-horizontal organisation" } do |f| %>
+<%= form_for panel, :html => { :class => "form-horizontal panel" } do |f| %>
 
-  <% if organisation.errors.any? %>
+  <% if panel.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(organisation.errors.count, "error") %> prohibited this organisation from being saved:</h3>
+        <h3 class="panel-title"><%= pluralize(panel.errors.count, "error") %> prohibited this panel from being saved:</h3>
       </div>
       <div class="panel-body">
         <ul>
-        <% organisation.errors.full_messages.each do |msg| %>
+        <% panel.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
@@ -16,11 +16,25 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <%= f.label :category_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :name, :class => 'form-control' %>
+      <%= collection_select(:panel, :category_id, Category.all, :id, :name, prompt: true, class: 'form-control') %>
     </div>
-    <%=f.error_span(:name) %>
+    <%=f.error_span(:category_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :short_title, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :short_title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:short_title) %>
   </div>
   <div class="form-group">
     <%= f.label :description, :class => 'control-label col-lg-2' %>
@@ -41,7 +55,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                organisations_path, :class => 'btn btn-default' %>
+                panels_path, :class => 'btn btn-default' %>
     </div>
   </div>
 

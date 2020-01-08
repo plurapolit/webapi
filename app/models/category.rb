@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Organisation < ApplicationRecord
+class Category < ApplicationRecord
   validates :name, presence: true
   has_one_attached :avatar
   validates :avatar, content_type: {
