@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Organisation Features', type: :feature do
   before do
+    sign_in_admin
     create(:organisation)
     visit '/organisations'
   end

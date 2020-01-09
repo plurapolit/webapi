@@ -6,6 +6,7 @@ RSpec.describe 'Panel Features', type: :feature do
   let(:category) { create :category }
 
   before do
+    sign_in_admin
     create :panel, category: category
     visit '/panels'
   end

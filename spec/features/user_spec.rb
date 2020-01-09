@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'User Features', type: :feature do
   let!(:organisation) { create :organisation }
+  before do
+    sign_in_admin
+  end
 
   describe 'default User' do
     before do

@@ -11,6 +11,9 @@ puts 'Run database cleaner'
 DatabaseCleaner.clean_with(:truncation)
 
 puts 'Start seeding...'
+puts 'Create an admin'
+Admin.create!(email: 'caspar@plurapolit.de', password: 'seedlog')
+
 puts 'Creating organisations'
 Organisation.create!(name: 'Die Partei', description: 'Das hier ist ein Parteiname')
 die_gruenen = Organisation.create!(name: 'Die Grünen', description: 'Auch ein Parteiname')
