@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :users, except: [:show]
   resources :panels, except: [:show]
   resources :categories, except: [:show]
   resources :organisations, except: [:show]
