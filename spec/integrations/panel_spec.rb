@@ -47,4 +47,10 @@ RSpec.describe 'Panel' do
       expect(panel_without_category).to eq(false)
     end
   end
+
+  describe 'slug' do
+    it 'can be accessed' do
+      expect(panel.slug).to eq('2020-kurz-title-panel')
+    end
+  end
 end
