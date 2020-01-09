@@ -8,6 +8,7 @@ gem 'active_storage_validations'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'pg'
 gem 'puma', '~> 4.1'
