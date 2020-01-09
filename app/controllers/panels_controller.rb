@@ -4,7 +4,7 @@ class PanelsController < ApplicationController
   before_action :set_panel, only: %i[edit update destroy]
 
   def index
-    @panels = Panel.all
+    @panels = Panel.with_attached_avatar.all
   end
 
   def new
