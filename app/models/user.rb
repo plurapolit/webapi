@@ -10,7 +10,7 @@ class User < ApplicationRecord
     in: ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'],
     message: 'is not a valid image type (Choose .jpg, .jpeg, .png or .svg)'
   }
-  validates :first_name, :last_name, :role, presence: true
+  validates :first_name, :last_name, presence: true
   validates :email, presence: true, if: -> { default? }
   validates :organisation, presence: true, if: -> { expert? }
 end

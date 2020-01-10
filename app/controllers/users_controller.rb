@@ -42,7 +42,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # rubocop:disable Metrics/MethodLength
   def user_params
     params.require(:user).permit(:organisation_id,
                                  :email,
@@ -55,5 +54,4 @@ class UsersController < ApplicationController
                                  :website_link,
                                  :avatar)
   end
-  # rubocop:enable Metrics/MethodLength
 end
