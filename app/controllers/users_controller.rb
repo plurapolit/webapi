@@ -45,7 +45,6 @@ class UsersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def user_params
     params.require(:user).permit(:organisation_id,
-                                 :role,
                                  :email,
                                  :first_name,
                                  :last_name,
