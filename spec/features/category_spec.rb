@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Category Features', type: :feature do
   before do
+    sign_in_admin
     create(:category)
     visit '/categories'
   end

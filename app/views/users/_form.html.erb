@@ -1,0 +1,104 @@
+<%= form_for user, :html => { :class => "form-horizontal user" } do |f| %>
+
+  <% if user.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :organisation_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= collection_select(:user, :organisation_id, Organisation.all, :id, :name, prompt: true, class: 'form-control') %>
+    </div>
+    <%=f.error_span(:organisation_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :role, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:role, User.roles.keys.map {|role| [role,role]}, prompt: true) %>
+    </div>
+    <%=f.error_span(:role) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:email) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :first_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :first_name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:first_name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:last_name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :biography, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :biography, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:biography) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :twitter_handle, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :twitter_handle, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:twitter_handle) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :facebook_handle, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :facebook_handle, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:facebook_handle) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :linkedin_handle, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :linkedin_handle, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:linkedin_handle) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :website_link, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :website_link, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:website_link) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :avatar, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.file_field :avatar, :class => 'form-control', accept: 'image/jpeg,image/jpg,image/png,image/svg+xml' %>
+    </div>
+    <%=f.error_span(:avatar) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                users_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

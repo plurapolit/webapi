@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    @categories = Category.all.includes([:avatar_attachment])
+    @categories = Category.with_attached_avatar.all
   end
 
   def new

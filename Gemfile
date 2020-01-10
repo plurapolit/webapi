@@ -7,6 +7,8 @@ ruby '2.6.5'
 gem 'active_storage_validations'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
 gem 'pg'
 gem 'puma', '~> 4.1'
@@ -30,6 +32,7 @@ group :development do
   gem 'brakeman'
   gem 'bullet'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'seedbank'
   gem 'solargraph'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

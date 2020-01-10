@@ -4,7 +4,7 @@ class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update destroy]
 
   def index
-    @organisations = Organisation.all.includes([:avatar_attachment])
+    @organisations = Organisation.with_attached_avatar.all
   end
 
   def new
