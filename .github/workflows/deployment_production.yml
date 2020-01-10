@@ -1,0 +1,29 @@
+name: Deploy to AWS ECS Fargate
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy:
+    steps:
+      - uses: chrislennon/action-aws-cli@v1.1
+
+      - name: Build image
+      - run: docker build -t 837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi:latest .
+
+      - name: Log into ECR
+      - run: $(aws ecr get-login --no-include-email --region eu-central-1)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Push image
+      - run: docker push 837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi:latest
+
+      - name: Force new deployment
+      - run: aws ecs update-service --cluster webapi-cluster --service webapi-web-prod --force-new-deployment
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

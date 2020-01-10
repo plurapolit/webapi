@@ -2,39 +2,29 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password:
 
 development:
   <<: *default
   database: webapi_development
+  username: postgres
+  password:
 
 test:
   <<: *default
   database: webapi_test
+  username: postgres
+  password:
 
-# As with config/credentials.yml, you never want to store sensitive information,
-# like your database password, in your source code. If your source code is
-# ever seen by anyone, they now have access to your database.
-#
-# Instead, provide the password as a unix environment variable when you boot
-# the app. Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
-# for a full rundown on how to provide these environment variables in a
-# production deployment.
-#
-# On Heroku and other platform providers, you may have a full connection URL
-# available as an environment variable. For example:
-#
-#   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
-#
-# You can use this database configuration with:
-#
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
+staging:
+  <<: *default
+  host: production.caazdhmsksck.eu-central-1.rds.amazonaws.com
+  database: webapistaging
+  username: webapistaginguser
+  password: <%= Rails.application.credentials.dig(:db, :staging_password) %>
 
 production:
+  host: production.caazdhmsksck.eu-central-1.rds.amazonaws.com
   <<: *default
-  database: webapi_development
-  username: postgres
-  password: <%= ENV['WEBAPI_DATABASE_PASSWORD'] %>
+  database: webapiproduction
+  username: webapiproductionuser
+  password: <%= Rails.application.credentials.dig(:db, :production_password) %>
