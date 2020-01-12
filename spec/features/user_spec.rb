@@ -16,7 +16,7 @@ RSpec.describe 'User Features', type: :feature do
 
     context 'when visiting the index page' do
       it 'shows all users' do
-        create(:user, first_name: 'Second User')
+        create(:user, first_name: 'Second User', email: 'second@mail.com')
         visit '/users'
         expect(page).to have_content('Bat').and have_content('Second User')
       end
