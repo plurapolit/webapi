@@ -1,4 +1,4 @@
-name: Deploy to AWS ECS Fargate
+name: Deploy to AWS ECS Fargate (Staging)
 
 on:
   push:
