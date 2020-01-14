@@ -33,7 +33,6 @@ group :development do
   gem 'brakeman'
   gem 'bullet'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'mailcatcher'
   gem 'seedbank'
   gem 'solargraph'
   gem 'spring'
