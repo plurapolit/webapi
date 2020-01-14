@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_12_163235) do
+ActiveRecord::Schema.define(version: 2020_01_14_170210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,10 +81,17 @@ ActiveRecord::Schema.define(version: 2020_01_12_163235) do
 
   create_table "users", force: :cascade do |t|
     t.bigint "organisation_id"
-    t.integer "role"
-    t.string "email", default: "", null: false
+    t.integer "role", default: 0
+    t.string "first_name"
+    t.string "last_name"
+    t.text "biography"
+    t.string "twitter_handle"
+    t.string "facebook_handle"
+    t.string "linkedin_handle"
+    t.string "website_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -94,13 +101,11 @@ ActiveRecord::Schema.define(version: 2020_01_12_163235) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "first_name"
-    t.string "last_name"
-    t.text "biography"
-    t.string "twitter_handle"
-    t.string "facebook_handle"
-    t.string "linkedin_handle"
-    t.string "website_link"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

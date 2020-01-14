@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   devise_for :admins
-  mount Web::Api => '/'
   authenticate :admin do
     resources :users, except: [:show]
     resources :panels, except: [:show]
@@ -10,4 +9,12 @@ Rails.application.routes.draw do
     resources :organisations, except: [:show]
     root to: 'user#index'
   end
+
+  namespace 'api', defaults: { format: :json } do
+    resources :categories, only: :index
+  end
+
+  devise_for :users, module: 'api/users',
+                     path: '/api/users',
+                     defaults: { format: :json }
 end
