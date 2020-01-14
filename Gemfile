@@ -9,8 +9,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
-gem 'grape'
-gem 'grape_on_rails_routes'
+gem 'devise-jwt'
 gem 'jbuilder', '~> 2.7'
 gem 'pg'
 gem 'puma', '~> 4.1'
@@ -34,6 +33,7 @@ group :development do
   gem 'brakeman'
   gem 'bullet'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'mailcatcher'
   gem 'seedbank'
   gem 'solargraph'
   gem 'spring'
