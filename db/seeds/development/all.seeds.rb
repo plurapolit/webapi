@@ -19,9 +19,17 @@ Organisation.create!(name: 'Die Partei', description: 'Das hier ist ein Parteina
 die_gruenen = Organisation.create!(name: 'Die Grünen', description: 'Auch ein Parteiname')
 
 puts 'Creating users'
-baerbock = User.create!(first_name: 'Annalena', last_name: 'Baerbock', role: :expert, organisation: die_gruenen)
+baerbock = User.create!(
+  first_name: 'Annalena', last_name: 'Baerbock',
+  role: :expert, organisation: die_gruenen, email: 'baerbock@gruen.de',
+  password: 'secret'
+)
 baerbock.avatar.attach(io: File.open(seed_fixtures_path('baerbock.jpg')), filename: 'baerbock.jpg')
-robin = User.create!(first_name: 'Robin', last_name: 'Zuschke', role: :default, email: 'robinzuschke@hotmail.de')
+robin = User.create!(
+  first_name: 'Robin', last_name: 'Zuschke',
+  role: :default, email: 'robinzuschke@hotmail.de',
+  password: 'secret'
+)
 robin.avatar.attach(io: File.open(seed_fixtures_path('robin.jpeg')), filename: 'robin.jpeg')
 
 puts 'Creating categories'

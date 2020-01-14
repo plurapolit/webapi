@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     root to: 'user#index'
   end
 
-  namespace :api do
-    resources :panels, only: [:index]
+  namespace 'api', defaults: { format: :json } do
+    resources :categories, only: :index
   end
+
+  devise_for :users, module: 'api/users',
+                     path: '/api/users',
+                     defaults: { format: :json }
 end

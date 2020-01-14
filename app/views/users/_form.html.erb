@@ -36,6 +36,13 @@
     </div>
     <%=f.error_span(:email) %>
   </div>
+    <div class="form-group">
+    <%= f.label :password, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.password_field :password, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:password) %>
+  </div>
   <div class="form-group">
     <%= f.label :first_name, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

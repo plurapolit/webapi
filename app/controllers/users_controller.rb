@@ -24,6 +24,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    remove_empty_password_on_update
+
     if @user.update(user_params)
       redirect_to users_path, notice: 'User was successfully updated.'
     else
@@ -43,15 +45,19 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:organisation_id,
-                                 :email,
-                                 :first_name,
-                                 :last_name,
+    params.require(:user).permit(:organisation_id, :email,
+                                 :role, :password,
+                                 :first_name, :last_name,
                                  :biography,
-                                 :twitter_handle,
-                                 :facebook_handle,
-                                 :linkedin_handle,
-                                 :website_link,
+                                 :twitter_handle, :facebook_handle,
+                                 :linkedin_handle, :website_link,
                                  :avatar)
+  end
+
+  def remove_empty_password_on_update
+    return unless params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+
+    params[:user].delete(:password)
+    params[:user].delete(:password_confirmation)
   end
 end

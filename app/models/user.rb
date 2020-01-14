@@ -11,6 +11,11 @@ class User < ApplicationRecord
     message: 'is not a valid image type (Choose .jpg, .jpeg, .png or .svg)'
   }
   validates :first_name, :last_name, presence: true
-  validates :email, presence: true, if: -> { default? }
   validates :organisation, presence: true, if: -> { expert? }
+
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
+  self.skip_session_storage = %i[http_auth params_auth]
 end
