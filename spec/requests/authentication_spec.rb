@@ -34,42 +34,42 @@ RSpec.describe 'Authentication requests', type: :request do
         expect(response.body).to include({ email: ['has already been taken'] }.to_json)
       end
     end
+  end
 
-    describe 'Sign in' do
-      before do
-        create(:user, email: 'testuser@test.de', password: 'secret')
-      end
-      it 'returns a 201' do
-        params = { user: {
-          email: 'testuser@test.de', password: 'secret', remember_me: 1
-        } }.to_json
-        post '/api/users/sign_in', headers: headers, params: params
-        expect(response.status).to eq(201)
-      end
+  describe 'Sign in' do
+    before do
+      create(:user, email: 'testuser@test.de', password: 'secret')
+    end
+    it 'returns a 201' do
+      params = { user: {
+        email: 'testuser@test.de', password: 'secret', remember_me: 1
+      } }.to_json
+      post '/api/users/sign_in', headers: headers, params: params
+      expect(response.status).to eq(201)
+    end
 
-      it 'returns a 401 with wrong password' do
-        params = { user: {
-          email: 'testuser@test.de', password: 'wrong-password', remember_me: 1
-        } }.to_json
-        post '/api/users/sign_in', headers: headers, params: params
-        expect(response.status).to eq(401)
-      end
+    it 'returns a 401 with wrong password' do
+      params = { user: {
+        email: 'testuser@test.de', password: 'wrong-password', remember_me: 1
+      } }.to_json
+      post '/api/users/sign_in', headers: headers, params: params
+      expect(response.status).to eq(401)
+    end
 
-      it 'returns a 401 with wrong email' do
-        params = { user: {
-          email: 'testuserwrong@test.de', password: 'secret', remember_me: 1
-        } }.to_json
-        post '/api/users/sign_in', headers: headers, params: params
-        expect(response.status).to eq(401)
-      end
+    it 'returns a 401 with wrong email' do
+      params = { user: {
+        email: 'testuserwrong@test.de', password: 'secret', remember_me: 1
+      } }.to_json
+      post '/api/users/sign_in', headers: headers, params: params
+      expect(response.status).to eq(401)
+    end
 
-      it 'includes a Bearer token' do
-        params = { user: {
-          email: 'testuser@test.de', password: 'secret', remember_me: 1
-        } }.to_json
-        post '/api/users/sign_in', headers: headers, params: params
-        expect(response.headers).to include('Authorization')
-      end
+    it 'includes a Bearer token' do
+      params = { user: {
+        email: 'testuser@test.de', password: 'secret', remember_me: 1
+      } }.to_json
+      post '/api/users/sign_in', headers: headers, params: params
+      expect(response.headers).to include('Authorization')
     end
   end
 end
