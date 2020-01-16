@@ -139,6 +139,9 @@ GEM
     erubi (1.9.0)
     erubis (2.7.0)
     eventmachine (1.2.7)
+    eventmachine (1.2.7-java)
+    eventmachine (1.2.7-x64-mingw32)
+    eventmachine (1.2.7-x86-mingw32)
     execjs (2.7.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
@@ -235,6 +238,8 @@ GEM
     puma (4.3.1-java)
       nio4r (~> 2.0)
     rack (2.0.8)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-protection (2.0.8.1)
       rack
     rack-proxy (0.6.5)
@@ -452,6 +457,7 @@ DEPENDENCIES
   pg
   pry-byebug
   puma (~> 4.1)
+  rack-cors
   rails (~> 6.0.2, >= 6.0.2.1)
   rails_best_practices
   rspec-rails
@@ -473,4 +479,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.1.2
+   2.1.4
