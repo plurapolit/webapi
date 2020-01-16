@@ -18,4 +18,8 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   self.skip_session_storage = %i[http_auth params_auth]
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
