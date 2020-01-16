@@ -70,8 +70,7 @@ jobs:
         PGHOST: localhost
         PGUSER: postgres
         RAILS_ENV: test
+        RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
       run: |
         source $HOME/.rvm/scripts/rvm
         bundle exec rspec
-      env: 
-        RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
