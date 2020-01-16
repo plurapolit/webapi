@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_170210) do
+ActiveRecord::Schema.define(version: 2020_01_16_142951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 2020_01_14_170210) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "audio_files", force: :cascade do |t|
+    t.string "file_link"
+    t.integer "duration_seconds"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "statement_id", null: false
+    t.index ["statement_id"], name: "index_audio_files_on_statement_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -77,6 +86,19 @@ ActiveRecord::Schema.define(version: 2020_01_14_170210) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_panels_on_category_id"
+  end
+
+  create_table "statements", force: :cascade do |t|
+    t.bigint "panel_id", null: false
+    t.bigint "user_id", null: false
+    t.text "quote"
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_statements_on_deleted_at"
+    t.index ["panel_id"], name: "index_statements_on_panel_id"
+    t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -112,6 +134,9 @@ ActiveRecord::Schema.define(version: 2020_01_14_170210) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "audio_files", "statements"
   add_foreign_key "panels", "categories"
+  add_foreign_key "statements", "panels"
+  add_foreign_key "statements", "users"
   add_foreign_key "users", "organisations"
 end
