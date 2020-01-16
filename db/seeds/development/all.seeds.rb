@@ -46,12 +46,13 @@ co2 = Panel.create!(
 co2.avatar.attach(io: File.open(seed_fixtures_path('co2.jpg')), filename: 'co2.jpg')
 
 puts 'Creating statements'
-track1 = AudioFile.create!(file_link: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3', duration_seconds: 90)
-track2 = AudioFile.create!(
-  file_link: 'http://www.hochmuth.com/mp3/Tchaikovsky_Nocturne__orch.mp3', duration_seconds: 120
-)
+statement1 = Statement.create!(quote: 'Ich halte nix von dem ganzen!', user: baerbock, panel: co2)
+statement2 = Statement.create!(quote: 'I like trains', user: robin, panel: co2)
 
-Statement.create!(quote: 'Ich halte nix von dem ganzen!', user: baerbock, panel: co2, audio_file: track1)
-Statement.create!(quote: 'I like trains', user: robin, panel: co2, audio_file: track2)
+AudioFile.create!(file_link: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3',
+                  duration_seconds: 90, statement: statement1)
+AudioFile.create!(
+  file_link: 'http://www.hochmuth.com/mp3/Tchaikovsky_Nocturne__orch.mp3', duration_seconds: 120, statement: statement2
+)
 
 puts 'Finished seeding!'

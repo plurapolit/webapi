@@ -2,9 +2,10 @@
 
 class Statement < ApplicationRecord
   acts_as_paranoid
+  has_one :audio_file
+  accepts_nested_attributes_for :audio_file
 
   belongs_to :panel
-  belongs_to :audio_file
   belongs_to :user
 
   delegate :title, to: :panel, prefix: true

@@ -6,8 +6,8 @@ RSpec.describe 'Statement' do
   let(:category) { create :category }
   let(:panel) { create :panel, category: category }
   let(:user) { create :user }
-  let(:audio_file) { create :audio_file }
-  let(:statement) { create :statement, user: user, panel: panel, audio_file: audio_file }
+  let(:statement) { create :statement, user: user, panel: panel }
+  let!(:audio_file) { create :audio_file, statement: statement }
 
   it 'is associated with a user' do
     expect(statement.user).to eq(user)

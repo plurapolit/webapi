@@ -11,6 +11,7 @@
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:quote) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
+      <th></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -24,6 +25,12 @@
         <td><%= statement.user.full_name %></td>
         <td><%= statement.quote %></td>
         <td><%= statement.status %></td>
+        <td>
+          <%= link_to 'Accept', accept_statement_path(statement),
+              method: :patch, class: 'btn btn-success btn-xs' %>
+          <%= link_to 'Reject', reject_statement_path(statement),
+              method: :patch, class: 'btn btn-danger btn-xs' %>
+        </td>
         <td><%=l statement.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

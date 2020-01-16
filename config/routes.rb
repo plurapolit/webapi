@@ -3,12 +3,17 @@
 Rails.application.routes.draw do
   devise_for :admins
   authenticate :admin do
+    root to: 'user#index'
     resources :users, except: [:show]
     resources :panels, except: [:show]
     resources :categories, except: [:show]
     resources :organisations, except: [:show]
-    resources :statements, except: [:show]
-    root to: 'user#index'
+    resources :statements, except: [:show] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
   end
 
   namespace 'api', defaults: { format: :json } do

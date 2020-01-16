@@ -7,17 +7,18 @@ RSpec.describe 'Statement Features', type: :feature do
   let(:panel) { create :panel, category: category }
   let(:organisation) { create(:organisation) }
   let(:user) { create :expert, organisation: organisation }
-  let(:audio_file) { create :audio_file }
+  let(:statement) { create :statement, user: user, panel: panel }
+  let!(:audio_file) { create :audio_file, statement: statement }
 
   before do
     sign_in_admin
-    create :statement, user: user, panel: panel, audio_file: audio_file
     visit '/statements'
   end
 
   context 'when visiting the index page' do
     it 'shows all statements' do
-      create(:statement, quote: 'Second Statement', user: user, panel: panel, audio_file: audio_file)
+      st2 = create(:statement, quote: 'Second Statement', user: user, panel: panel)
+      create(:audio_file, statement: st2)
       visit '/statements'
       expect(page).to have_content('This is my statement!').and have_content('Second Statement')
     end
@@ -41,7 +42,7 @@ RSpec.describe 'Statement Features', type: :feature do
     before do
       click_on 'New'
       fill_in 'statement_quote', with: 'New Quote'
-      select audio_file.file_link, from: 'statement_audio_file_id'
+      fill_in 'audio_file_file_link', with: 'http://iluvu.de/hello_its_me.mp3'
       select user.full_name, from: 'statement_user_id'
       select panel.title, from: 'statement_panel_id'
     end
@@ -49,6 +50,18 @@ RSpec.describe 'Statement Features', type: :feature do
     it 'successfully does create' do
       click_on 'Create Statement'
       expect(page).to have_content('Statement was successfully created')
+    end
+  end
+
+  describe 'status action' do
+    it 'is possible to reject a statement' do
+      click_on 'Reject'
+      expect(page).to have_content('Statement was rejected.')
+    end
+
+    it 'is possible to accept a statement' do
+      click_on 'Accept'
+      expect(page).to have_content('Statement was accepted.')
     end
   end
 end

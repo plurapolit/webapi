@@ -22,13 +22,21 @@
     </div>
     <%=f.error_span(:panel_id) %>
   </div>
-  <div class="form-group">
-    <%= f.label :audio_file, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= collection_select(:statement, :audio_file_id, AudioFile.all, :id, :file_link, prompt: true, class: 'form-control') %>
+  <%= fields_for :audio_file, statement.audio_file do |audio_file_fields| %>
+    <div class="form-group">
+      <%= f.label :file_link, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= audio_file_fields.text_field :file_link, class: 'form-control', placeholder: 'https://plurapolit-webapi-prod-media.s3.eu-central-1.amazonaws.com/statements/2020-01-13/23-49-23-userinfo.mp3' %>
+      </div>
     </div>
-    <%=f.error_span(:audio_file) %>
-  </div>
+    <div class="form-group">
+      <%= f.label :duration_seconds, :class => 'control-label col-lg-2' %>
+      <div class="col-xs-2">
+        <%= audio_file_fields.number_field :duration_seconds, class: 'form-control' %>
+      </div>
+      <%=f.error_span(:audio_file) %>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.label :user_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
