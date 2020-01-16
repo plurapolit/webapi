@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   devise_for :admins
   authenticate :admin do
-    root to: 'user#index'
+    root to: 'users#index'
     resources :users, except: [:show]
     resources :panels, except: [:show]
     resources :categories, except: [:show]
