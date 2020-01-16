@@ -9,6 +9,6 @@ RSpec.describe 'Home Page Features', type: :feature do
 
   it 'is accessible' do
     visit '/'
-    expect(status).to eq(200)
+    expect(status_code).to eq(200)
   end
 end
