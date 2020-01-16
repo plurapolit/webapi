@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_171113) do
+ActiveRecord::Schema.define(version: 2020_01_16_204336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 2020_01_16_171113) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "statement_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["statement_id"], name: "index_likes_on_statement_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -144,6 +153,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_171113) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audio_files", "statements"
+  add_foreign_key "likes", "statements"
+  add_foreign_key "likes", "users"
   add_foreign_key "panels", "categories"
   add_foreign_key "statements", "panels"
   add_foreign_key "statements", "users"

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   belongs_to :organisation, optional: true
   delegate :name, to: :organisation, prefix: true, allow_nil: true
   enum role: { default: 0, expert: 1 }
+  has_many :likes
+  has_many :statements
 
   has_one_attached :avatar
   validates :avatar, content_type: {

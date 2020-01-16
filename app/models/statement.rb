@@ -6,6 +6,7 @@ class Statement < ApplicationRecord
   accepts_nested_attributes_for :audio_file
   has_one :sent_comment, class_name: 'Comment', foreign_key: 'sender_id'
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
+  has_many :likes
 
   belongs_to :panel
   belongs_to :user
