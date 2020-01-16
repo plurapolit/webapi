@@ -1,0 +1,62 @@
+<%= form_for statement, :html => { :class => "form-horizontal statement" } do |f| %>
+
+  <% if statement.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(statement.errors.count, "error") %> prohibited this statement from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% statement.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :panel_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= collection_select(:statement, :panel_id, Panel.all, :id, :title, prompt: true, class: 'form-control') %>
+    </div>
+    <%=f.error_span(:panel_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :audio_file, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= collection_select(:statement, :audio_file_id, AudioFile.all, :id, :file_link, prompt: true, class: 'form-control') %>
+    </div>
+    <%=f.error_span(:audio_file) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= collection_select(:statement, :user_id, User.expert, :id, :full_name, prompt: true, class: 'form-control') %>
+    </div>
+    <%=f.error_span(:user_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :quote, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_area :quote, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:quote) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= select_tag :status, options_for_select(Statement.statuses) %>
+    </div>
+    <%=f.error_span(:status) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                statements_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

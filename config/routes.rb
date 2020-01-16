@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :panels, except: [:show]
     resources :categories, except: [:show]
     resources :organisations, except: [:show]
+    resources :statements, except: [:show]
     root to: 'user#index'
   end
 
