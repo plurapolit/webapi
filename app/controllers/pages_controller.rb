@@ -5,5 +5,7 @@ class PagesController < ApplicationController
     @sample_age_range = AgeRange.last
   end
 
-  def home; end
+  def home
+    @unchecked_statements_count = Statement.pending.count
+  end
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'pages/healthcheck'
-  get 'pages/home'
   get '/healthcheck', to: 'pages#healthcheck'
   devise_for :admins
   authenticate :admin do
