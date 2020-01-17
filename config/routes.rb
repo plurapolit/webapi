@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'pages/healthcheck'
+  get 'pages/home'
+  get '/healthcheck', to: 'pages#healthcheck'
   devise_for :admins
   authenticate :admin do
-    root to: 'users#index'
+    root to: 'pages#home'
     resources :users, except: [:show]
     resources :panels, except: [:show]
     resources :categories, except: [:show]

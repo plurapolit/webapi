@@ -55,4 +55,9 @@ AudioFile.create!(
   file_link: 'http://www.hochmuth.com/mp3/Tchaikovsky_Nocturne__orch.mp3', duration_seconds: 120, statement: statement2
 )
 
+AgeRange.create([
+                  { end_age: 15 }, { start_age: 16, end_age: 28 },
+                  { start_age: 29, end_age: 44 }, { start_age: 45, end_age: 60 }, { start_age: 60 }
+                ])
+
 puts 'Finished seeding!'
