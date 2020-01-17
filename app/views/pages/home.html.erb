@@ -1,2 +1,30 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="page-header">
+  <h1>Workflows</h1>
+</div>
+
+<h3 class="margin-top-lg margin-bottom-md">Create a new panel</h3>
+
+<h4 class="margin-top-sm">1. Make sure the category for the panel is already created or create it</h4>
+<div class="margin-x-xs"><%= link_to 'See all categories', categories_path, class: 'btn btn-default' %></div>
+<div class="margin-x-xs"><%= link_to 'Create a new category', new_category_path , class: 'btn btn-primary' %></div>
+
+<h4 class="margin-top-lg">3. Create the panel</h4>
+<div class="margin-x-xs"><%= link_to 'New panel', new_panel_path, class: 'btn btn-danger' %></div>
+
+
+<h3 class="margin-top-xl margin-bottom-md">Create an expert statement</h3>
+
+<h4 class="margin-top-sm">1. Make sure the organisation/party of the expert is already created or create it</h4>
+<div class="margin-x-xs"><%= link_to 'See all organisations', organisations_path, class: 'btn btn-default' %></div>
+<div class="margin-x-xs"><%= link_to 'Create a new organisation', new_organisation_path , class: 'btn btn-primary' %></div>
+
+<h4 class="margin-top-lg">2. Make sure the expert is already created or create it</h4>
+<div class="margin-x-xs"><%= link_to 'See all experts', users_path, class: 'btn btn-default' %></div>
+<div class="margin-x-xs"><%= link_to 'Create a new expert', new_user_path , class: 'btn btn-primary' %></div>
+
+<h4 class="margin-top-lg">3. Create the statement</h4>
+<div class="margin-x-xs"><%= link_to 'New statement', new_statement_path, class: 'btn btn-danger' %></div>
+
+<h3 class="margin-top-xl margin-bottom-md">Accept & Reject statements</h3>
+<h4>Currently pending statements: <%= @unchecked_statements_count %></h4>
+<div class="margin-x-xs"><%= link_to 'Check statements', statements_path , class: 'btn btn-danger' %></div>

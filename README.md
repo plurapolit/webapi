@@ -2,7 +2,7 @@
 
 ## Live Application
 
-Staging can be found here: https://webapi-staging-lb-718828028.eu-central-1.elb.amazonaws.com
+Staging can be found here: https://webapi-staging-lb-718828028.eu-central-1.elb.amazonaws.com </br>
 Production can be found here: https://webapi-prod-lb-379596049.eu-central-1.elb.amazonaws.com
 
 ## Project Setup

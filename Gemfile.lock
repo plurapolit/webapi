@@ -439,8 +439,8 @@ DEPENDENCIES
   sass-rails (>= 6)
   seedbank
   selenium-webdriver
-  simplecov
   sentry-raven
+  simplecov
   solargraph
   spring
   spring-watcher-listen (~> 2.0.0)
