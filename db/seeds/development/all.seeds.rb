@@ -19,9 +19,17 @@ Organisation.create!(name: 'Die Partei', description: 'Das hier ist ein Parteina
 die_gruenen = Organisation.create!(name: 'Die Grünen', description: 'Auch ein Parteiname')
 
 puts 'Creating users'
-baerbock = User.create!(first_name: 'Annalena', last_name: 'Baerbock', role: :expert, organisation: die_gruenen)
+baerbock = User.create!(
+  first_name: 'Annalena', last_name: 'Baerbock',
+  role: :expert, organisation: die_gruenen, email: 'baerbock@gruen.de',
+  password: 'secret'
+)
 baerbock.avatar.attach(io: File.open(seed_fixtures_path('baerbock.jpg')), filename: 'baerbock.jpg')
-robin = User.create!(first_name: 'Robin', last_name: 'Zuschke', role: :default, email: 'robinzuschke@hotmail.de')
+robin = User.create!(
+  first_name: 'Robin', last_name: 'Zuschke',
+  role: :default, email: 'robinzuschke@hotmail.de',
+  password: 'secret'
+)
 robin.avatar.attach(io: File.open(seed_fixtures_path('robin.jpeg')), filename: 'robin.jpeg')
 
 puts 'Creating categories'
@@ -36,5 +44,20 @@ co2 = Panel.create!(
   description: 'CO2 ist schlecht.'
 )
 co2.avatar.attach(io: File.open(seed_fixtures_path('co2.jpg')), filename: 'co2.jpg')
+
+puts 'Creating statements'
+statement1 = Statement.create!(quote: 'Ich halte nix von dem ganzen!', user: baerbock, panel: co2)
+statement2 = Statement.create!(quote: 'I like trains', user: robin, panel: co2)
+
+AudioFile.create!(file_link: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3',
+                  duration_seconds: 90, statement: statement1)
+AudioFile.create!(
+  file_link: 'http://www.hochmuth.com/mp3/Tchaikovsky_Nocturne__orch.mp3', duration_seconds: 120, statement: statement2
+)
+
+AgeRange.create([
+                  { end_age: 15 }, { start_age: 16, end_age: 28 },
+                  { start_age: 29, end_age: 44 }, { start_age: 45, end_age: 60 }, { start_age: 61 }
+                ])
 
 puts 'Finished seeding!'

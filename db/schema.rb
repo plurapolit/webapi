@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_142913) do
+ActiveRecord::Schema.define(version: 2020_01_17_112811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,10 +48,54 @@ ActiveRecord::Schema.define(version: 2020_01_09_142913) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "age_ranges", force: :cascade do |t|
+    t.integer "start_age"
+    t.integer "end_age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_age_ranges_on_deleted_at"
+  end
+
+  create_table "audio_files", force: :cascade do |t|
+    t.string "file_link"
+    t.integer "duration_seconds"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "statement_id", null: false
+    t.index ["statement_id"], name: "index_audio_files_on_statement_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_id"], name: "index_comments_on_recipient_id"
+    t.index ["sender_id"], name: "index_comments_on_sender_id"
+  end
+
+  create_table "jwt_blacklists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "statement_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["statement_id"], name: "index_likes_on_statement_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -71,10 +115,22 @@ ActiveRecord::Schema.define(version: 2020_01_09_142913) do
     t.index ["category_id"], name: "index_panels_on_category_id"
   end
 
+  create_table "statements", force: :cascade do |t|
+    t.bigint "panel_id", null: false
+    t.bigint "user_id", null: false
+    t.text "quote"
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_statements_on_deleted_at"
+    t.index ["panel_id"], name: "index_statements_on_panel_id"
+    t.index ["user_id"], name: "index_statements_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "organisation_id"
-    t.integer "role"
-    t.string "email"
+    t.integer "role", default: 0
     t.string "first_name"
     t.string "last_name"
     t.text "biography"
@@ -84,10 +140,34 @@ ActiveRecord::Schema.define(version: 2020_01_09_142913) do
     t.string "website_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.bigint "age_range_id"
+    t.index ["age_range_id"], name: "index_users_on_age_range_id"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "audio_files", "statements"
+  add_foreign_key "likes", "statements"
+  add_foreign_key "likes", "users"
   add_foreign_key "panels", "categories"
+  add_foreign_key "statements", "panels"
+  add_foreign_key "statements", "users"
   add_foreign_key "users", "organisations"
 end

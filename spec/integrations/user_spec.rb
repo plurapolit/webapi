@@ -80,10 +80,10 @@ RSpec.describe 'User' do
         expect(expert_without_last_name).to eq(false)
       end
 
-      it 'does not have to have an email' do
+      it 'has to have an email' do
         expert.email = ''
         expert_without_email = expert.save
-        expect(expert_without_email).to eq(true)
+        expect(expert_without_email).to eq(false)
       end
 
       it 'has to be associated with an organisation' do

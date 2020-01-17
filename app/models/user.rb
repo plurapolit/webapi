@@ -2,8 +2,11 @@
 
 class User < ApplicationRecord
   belongs_to :organisation, optional: true
+  belongs_to :age_range, optional: true
   delegate :name, to: :organisation, prefix: true, allow_nil: true
   enum role: { default: 0, expert: 1 }
+  has_many :likes
+  has_many :statements
 
   has_one_attached :avatar
   validates :avatar, content_type: {
@@ -11,6 +14,15 @@ class User < ApplicationRecord
     message: 'is not a valid image type (Choose .jpg, .jpeg, .png or .svg)'
   }
   validates :first_name, :last_name, presence: true
-  validates :email, presence: true, if: -> { default? }
   validates :organisation, presence: true, if: -> { expert? }
+
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
+  self.skip_session_storage = %i[http_auth params_auth]
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

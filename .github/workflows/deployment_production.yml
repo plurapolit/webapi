@@ -1,4 +1,4 @@
-name: Deploy to AWS ECS Fargate
+name: Deploy to AWS ECS Fargate (Production)
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         run: docker push 837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi:latest
 
       - name: Force new deployment
-        run: aws ecs update-service --cluster webapi-cluster --service webapi-web-prod --force-new-deployment
+        run: aws ecs update-service --cluster webapi-cluster --service webapi-web-prod --force-new-deployment --region eu-central-1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
