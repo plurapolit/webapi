@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   belongs_to :organisation, optional: true
+  belongs_to :age_range, optional: true
   delegate :name, to: :organisation, prefix: true, allow_nil: true
   enum role: { default: 0, expert: 1 }
   has_many :likes
