@@ -57,7 +57,7 @@ AudioFile.create!(
 
 AgeRange.create([
                   { end_age: 15 }, { start_age: 16, end_age: 28 },
-                  { start_age: 29, end_age: 44 }, { start_age: 45, end_age: 60 }, { start_age: 60 }
+                  { start_age: 29, end_age: 44 }, { start_age: 45, end_age: 60 }, { start_age: 61 }
                 ])
 
 puts 'Finished seeding!'
