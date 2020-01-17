@@ -11,7 +11,9 @@ Bundler.require(*Rails.groups)
 module Webapi
   class Application < Rails::Application
     config.load_defaults 6.0
-
+    Raven.configure do |config|
+      config.dsn = Rails.application.credentials.dig(:sentry_dns)
+    end
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
