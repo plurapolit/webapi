@@ -8,7 +8,7 @@ module Api
       def create
         super do
           render json: { user: current_user,
-                         token: current_token }.to_json, status: 201
+                         token: current_token }.to_json, status: :created
           return
         end
       end

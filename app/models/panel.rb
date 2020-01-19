@@ -3,7 +3,7 @@
 class Panel < ApplicationRecord
   belongs_to :category
   delegate :name, to: :category, prefix: true
-
+  has_many :statements
   has_one_attached :avatar
   validates :avatar, content_type: {
     in: ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'],

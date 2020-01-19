@@ -11,9 +11,47 @@ Production can be found here: https://webapi-prod-lb-379596049.eu-central-1.elb.
 
 ## API Enpoints
 
-| HTTP Method | Endpoint  |  Description |  Body |
+| HTTP Method | Endpoint  |  Description | Notes |
 |---|---|---|---|
-|POST| `/api/users/sign_in`  | Signs in the user  | { "user": { "email": "email@email.de", "password": "secret"}} | 
-|POST| `/api/users/sign_up`  |  Registration for the user | {"user": {"email": "email@email.de","password": "secret","first_name": "Foo","last_name": "Bar"}}
-|   |   |   |
+|POST| `/api/users/sign_in`  | Signs in the user  | 
+```
+{
+	"user": {
+        "email": "myemail@hotmail.de",
+        "password": "secret"
+    }
+}
+```
 
+|  |   |   |  |
+|---|---|---|---|
+|POST| `/api/users/sign_up`  |  Registration for the user ||
+```
+{
+	"user": {
+        "email": "myemail@hotmail.de",
+        "password": "secret",
+        "first_name": "Max",
+        "last_name": "Müller"
+    }
+}
+```
+| |   |   | |
+|---|---|---|---|
+|POST|`/api/statements`|Creates a statement for a panel| Bearer token must be present in header |
+```
+{
+	"statement": {
+		"panel_id": "1",
+		"quote": "This is the statement about"
+	},
+	
+	"audio_file": {
+		"file_link": "https://mysong.de/test.mp3",
+		"duration_seconds": "99"
+	}
+}
+```
+| |   |   | |
+|---|---|---|---|
+|POST|`/api/statements/:id`|Deletes a statement| Bearer token must be present in header |
