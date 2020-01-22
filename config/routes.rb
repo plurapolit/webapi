@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :statements, only: %i[create destroy] do
       resources :comments, only: %i[create destroy index]
     end
-    resources :panels, only: :show
+    resources :panels, only: %i[show index]
   end
 
   devise_for :users, module: 'api/users',

@@ -5,4 +5,10 @@ class Comment < ApplicationRecord
 
   belongs_to :sender, class_name: 'Statement'
   belongs_to :recipient, class_name: 'Statement'
+
+  scope :of_statement, lambda { |statement|
+    joins(:sender)
+      .where(recipient: statement)
+      .merge(Statement.accepted)
+  }
 end
