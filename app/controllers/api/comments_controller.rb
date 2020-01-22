@@ -9,7 +9,7 @@ module Api
 
     def index
       @statement = Statement.find(params[:statement_id])
-      @accepted_comments = Comment.joins(:sender).where(recipient: @statement).merge(Statement.accepted)
+      @accepted_comments = Comment.of_statement(@statement)
       render :index, status: :ok
     end
 
