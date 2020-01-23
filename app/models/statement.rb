@@ -15,4 +15,20 @@ class Statement < ApplicationRecord
   delegate :file_link, to: :audio_file, prefix: true
 
   enum status: { pending: 0, accepted: 1, rejected: 2 }
+
+  scope :from_experts, lambda {
+    joins(:user)
+      .where('users.role = 1')
+  }
+
+  scope :from_community, lambda {
+    joins(:user)
+      .where('users.role = 0')
+  }
+
+  scope :sorted_by_likes, lambda {
+    left_outer_joins(:likes)
+      .group('statements.id')
+      .order('COUNT(likes.id) DESC')
+  }
 end

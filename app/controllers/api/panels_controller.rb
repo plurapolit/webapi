@@ -11,7 +11,8 @@ module Api
     def show
       @panel = Panel.find(params[:id])
       @category = @panel.category
-      @statements = @panel.statements.accepted
+      @statements_from_experts = @panel.statements.from_experts.shuffle
+      @statements_from_community = @panel.statements.from_community.sorted_by_likes
     end
   end
 end
