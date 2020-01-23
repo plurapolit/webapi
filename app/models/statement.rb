@@ -31,4 +31,8 @@ class Statement < ApplicationRecord
       .group('statements.id')
       .order('COUNT(likes.id) DESC')
   }
+
+  def liked_by?(user)
+    likes.exists?(user: user)
+  end
 end
