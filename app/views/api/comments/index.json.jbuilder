@@ -8,5 +8,5 @@ json.comments @accepted_comments do |comment|
   json.user user, :full_name, :role
   json.age_range user.age_range, :range_as_text if user.age_range.present?
   json.organisation user.organisation :name, :avatar if user.organisation.present?
-  json.user_avatar url_for(user.avatar) if user.avatar.attached?
+  json.user_avatar rails_blob_path(user.avatar) if user.avatar.attached?
 end

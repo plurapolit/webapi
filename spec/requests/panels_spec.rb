@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Comments requests', type: :request do
+RSpec.describe 'Panels requests', type: :request do
   let(:headers) { { 'CONTENT_TYPE': 'application/json' } }
   let(:category) { create :category }
   let!(:panel) { create :panel, category: category }
@@ -26,7 +26,7 @@ RSpec.describe 'Comments requests', type: :request do
       statement = create :statement, panel: panel, user: user, status: 'accepted'
       create(:audio_file, statement: statement)
       get "/api/panels/#{panel.id}"
-      expect(JSON.parse(body)['statements'].length).to eq 1
+      expect(JSON.parse(body)['community_statements'].length).to eq 1
     end
   end
 end
