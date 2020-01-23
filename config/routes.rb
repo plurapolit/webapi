@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :categories, only: :index
     resources :statements, only: %i[create destroy] do
       resources :comments, only: %i[create destroy index]
+      delete 'likes', to: 'likes#destroy'
+      resources :likes, only: :create
     end
     resources :panels, only: %i[show index]
   end

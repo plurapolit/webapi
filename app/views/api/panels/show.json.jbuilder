@@ -8,6 +8,10 @@ json.panel_avatar_key @panel.avatar.blob.key if @panel.avatar.attached?
 json.expert_statements @statements_from_experts do |statement|
   json.statement statement, :id, :quote, :created_at
   json.number_of_comments Comment.of_statement(statement).count
+  json.likes do
+    json.total_likes statement.likes.count
+    json.liked_by_current_user statement.liked_by?(current_user)
+  end
   json.statement_audio_file statement.audio_file, :file_link, :duration_seconds
   user = statement.user
   json.user user, :full_name, :role
@@ -23,6 +27,10 @@ end
 json.community_statements @statements_from_community do |statement|
   json.statement statement, :id, :quote, :created_at
   json.number_of_comments Comment.of_statement(statement).count
+  json.likes do
+    json.total_likes statement.likes.count
+    json.liked_by_current_user statement.liked_by?(current_user)
+  end
   json.statement_audio_file statement.audio_file, :file_link, :duration_seconds
   user = statement.user
   json.user user, :full_name, :role
