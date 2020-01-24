@@ -4,7 +4,7 @@ class StatementsController < ApplicationController
   before_action :set_statement, only: %i[edit update destroy accept reject]
 
   def index
-    @statements = Statement.all.includes(%i[panel user audio_file]).reverse
+    @statements = Statement.all.includes(%i[panel user audio_file]).order(created_at: :desc)
   end
 
   def new
