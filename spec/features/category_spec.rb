@@ -35,6 +35,7 @@ RSpec.describe 'Category Features', type: :feature do
     before do
       click_on 'New'
       fill_in 'category_name', with: 'New Name'
+      fill_in 'category_background_color', with: '#1a1844'
     end
 
     it 'successfully does create' do

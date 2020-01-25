@@ -2,7 +2,7 @@
 
 json.category @category
 json.category_avatar_key @category.avatar.blob.key if @category.avatar.attached?
-json.panel @panel, :id, :title, :short_title, :slug, :description, :created_at
+json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
 json.panel_avatar_key @panel.avatar.blob.key if @panel.avatar.attached?
 
 json.expert_statements @statements_from_experts do |statement|

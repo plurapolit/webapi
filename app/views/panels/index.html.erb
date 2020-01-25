@@ -9,6 +9,7 @@
       <th><%= model_class.human_attribute_name(:category_id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:short_title) %></th>
+      <th><%= model_class.human_attribute_name(:font_color) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:slug) %></th>
       <th><%= model_class.human_attribute_name(:avatar) %></th>
@@ -23,6 +24,12 @@
         <td><%= panel.category_name %></td>
         <td><%= panel.title %></td>
         <td><%= panel.short_title %></td>
+        <td>
+          <div style="display: flex; justify-content: space-around;">
+            <%= panel.font_color %>
+            <div style="heigth: 30px; width: 50%; background-color: <%= panel.font_color %>"></div>
+          </div>
+        </td>
         <td><%= panel.description %></td>
         <td><%= panel.slug %></td>
         <% if panel.avatar.attached? %>

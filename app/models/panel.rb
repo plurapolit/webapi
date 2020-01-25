@@ -9,7 +9,7 @@ class Panel < ApplicationRecord
     in: ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'],
     message: 'is not a valid image type (Choose .jpg, .jpeg, .png or .svg)'
   }
-  validates :title, :short_title, :description, presence: true
+  validates :title, :short_title, :description, :font_color, presence: true
 
   def slug
     "#{created_at.year}-#{short_title.downcase.split.join('-')}"

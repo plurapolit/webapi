@@ -38,6 +38,7 @@ RSpec.describe 'Panel Features', type: :feature do
       click_on 'New'
       fill_in 'panel_title', with: 'New Title'
       fill_in 'panel_short_title', with: 'New Short Title'
+      fill_in 'panel_font_color', with: '#1a1844'
       fill_in 'panel_description', with: 'New panel Description'
       select category.name, from: 'panel_category_id'
     end
