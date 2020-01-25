@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  validates :name, presence: true
+  validates :name, :background_color, presence: true
   has_many :panels
   has_one_attached :avatar
   validates :avatar, content_type: {
