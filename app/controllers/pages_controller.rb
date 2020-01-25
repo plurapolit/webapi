@@ -2,7 +2,7 @@
 
 class PagesController < ApplicationController
   def healthcheck
-    @sample_age_range = AgeRange.last
+    render json: { msg: 'healthy' }, status: :ok
   end
 
   def home
