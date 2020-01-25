@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'database_cleaner'
 
 def seed_fixtures_path(file_name)
