@@ -82,3 +82,4 @@ BODY:
 |GET|`/api/panels/:id`|Get a specific panel with all statements and # of comments and likes| | Should return 200 |
 |POST|`/api/statements/:statement_id/likes`|Likes a statement| Bearer token must be present in header | Should return 201 |
 |DELETE|`/api/statements/:statement_id/likes`|Unlikes a statement| Bearer token must be present in header | Should return 204 |
+|GET|`/api/slugs`|Get all slugs with corresponding panel id||Should return 200|
