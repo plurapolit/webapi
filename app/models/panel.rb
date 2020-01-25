@@ -12,6 +12,6 @@ class Panel < ApplicationRecord
   validates :title, :short_title, :description, :font_color, presence: true
 
   def slug
-    "#{created_at.year}-#{short_title.downcase.split.join('-')}"
+    "#{created_at.year} #{short_title}".parameterize
   end
 end
