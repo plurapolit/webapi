@@ -29,5 +29,6 @@ Rails.application.routes.draw do
 
   devise_for :users, module: 'api/users',
                      path: '/api/users',
-                     defaults: { format: :json }
+                     defaults: { format: :json },
+                     controllers: { confirmations: 'confirmations' }
 end
