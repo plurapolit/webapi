@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:organisation_id, :email,
                                  :role, :password,
                                  :first_name, :last_name,
-                                 :biography,
+                                 :biography, :age_range_id,
                                  :twitter_handle, :facebook_handle,
                                  :linkedin_handle, :website_link,
                                  :avatar)

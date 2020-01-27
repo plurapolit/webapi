@@ -58,6 +58,13 @@
     <%=f.error_span(:last_name) %>
   </div>
   <div class="form-group">
+    <%= f.label :age_range_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= collection_select(:user, :age_range_id, AgeRange.all, :id, :range_as_text, prompt: true, class: 'form-control') %>
+    </div>
+    <%=f.error_span(:age_range_id) %>
+  </div>
+  <div class="form-group">
     <%= f.label :biography, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_area :biography, :class => 'form-control' %>

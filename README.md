@@ -36,10 +36,12 @@ BODY:
         "email": "myemail@hotmail.de",
         "password": "secret",
         "first_name": "Max",
-        "last_name": "Müller"
+        "last_name": "Müller",
+        "age_range_id: "2"
     }
 }
 ```
+See info about age range on bottom: [Age Ranges](#age-ranges)
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
 |POST|`/api/statements`|Creates a statement for a panel| Bearer token must be present in header | Should return 201 |
@@ -83,3 +85,12 @@ BODY:
 |POST|`/api/statements/:statement_id/likes`|Likes a statement| Bearer token must be present in header | Should return 201 |
 |DELETE|`/api/statements/:statement_id/likes`|Unlikes a statement| Bearer token must be present in header | Should return 204 |
 |GET|`/api/slugs`|Get all slugs with corresponding panel id||Should return 200|
+
+## Age Ranges
+| ID | Start Age  |  End Age |
+|---|---|---|
+|1|NULL|15|
+|2|16|28|
+|3|29|44|
+|4|45|60|
+|5|61|NULL|
