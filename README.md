@@ -18,9 +18,9 @@ Production can be found here: https://webapi-prod-lb-379596049.eu-central-1.elb.
 BODY:
 
 {
-	"user": {
-        "email": "myemail@hotmail.de",
-        "password": "secret"
+    "user": {
+	"email": "myemail@hotmail.de",
+	"password": "secret"
     }
 }
 ```
@@ -32,16 +32,16 @@ BODY:
 BODY:
 
 {
-	"user": {
-        "email": "myemail@hotmail.de",
-        "password": "secret",
-        "first_name": "Max",
-        "last_name": "Müller",
-        "age_range_id: "2"
+    "user": {
+	"email": "myemail@hotmail.de",
+	"password": "secret",
+	"first_name": "Max",
+	"last_name": "Müller",
+	"age_range_id: "2"
     }
 }
 ```
-See info about age range on bottom: [Age Ranges](#age-ranges)
+See info about age range on bottom: [Age Ranges](#age-ranges) </br>
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
 |POST|`/api/statements`|Creates a statement for a panel| Bearer token must be present in header | Should return 201 |
