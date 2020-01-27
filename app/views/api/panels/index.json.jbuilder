@@ -8,6 +8,9 @@ json.categories @categories do |category|
     json.experts panel.statements.from_experts.shuffle do |statement|
       json.full_name statement.user.full_name
       json.avatar statement.user.avatar.blob.key if statement.user.avatar.attached?
+      if statement.user.organisation.avatar.attached?
+        json.organisation_avatar statement.user.organisation.avatar.blob.key
+      end
     end
   end
 end
