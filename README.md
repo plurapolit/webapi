@@ -45,6 +45,7 @@ See info about age range on bottom: [Age Ranges](#age-ranges) </br>
 
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
+|DELETE|`/api/users/sign_out`|Signs the user out| Bearer token must be present in header | Should return 204 |
 |POST|`/api/statements`|Creates a statement for a panel| Bearer token must be present in header | Should return 201 |
 ```
 BODY:
