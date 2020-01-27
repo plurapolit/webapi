@@ -16,7 +16,8 @@ Admin.create!(email: 'caspar@plurapolit.de', password: 'seedlog')
 
 puts 'Creating organisations'
 9.times do
-  Organisation.create!(name: Faker::Company.unique.name, description: Faker::Quote.famous_last_words)
+  o = Organisation.create!(name: Faker::Company.unique.name, description: Faker::Quote.famous_last_words)
+  o.avatar.attach(io: File.open(seed_fixtures_path('party.png')), filename: 'party.png')
 end
 
 puts 'Creating categories'
@@ -28,8 +29,8 @@ end
 puts 'Creating panels'
 10.times do
   pa = Panel.create!(
-    title: Faker::Company.catch_phrase,
-    short_title: Faker::Company.buzzword,
+    title: Faker::Lorem.words(number: rand(6..10)),
+    short_title: Faker::Lorem.words(number: rand(2..4)),
     font_color: Faker::Color.hex_color,
     category: Category.order('RANDOM()').first,
     description: Faker::Quote.famous_last_words
