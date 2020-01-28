@@ -29,8 +29,8 @@ end
 puts 'Creating panels'
 10.times do
   pa = Panel.create!(
-    title: Faker::Lorem.words(number: rand(6..10)),
-    short_title: Faker::Lorem.words(number: rand(2..4)),
+    title: Faker::Lorem.words(number: rand(6..14).join(' ')),
+    short_title: Faker::Lorem.words(number: rand(2..6).join(' ')),
     font_color: Faker::Color.hex_color,
     category: Category.order('RANDOM()').first,
     description: Faker::Quote.famous_last_words
@@ -89,7 +89,7 @@ AgeRange.create!([
                  ])
 
 puts 'Creating comments'
-30.times do
+200.times do
   recipient = Statement.find(rand(1..90))
   comment = Statement.create!(
     quote: 'Das ist ein Kommentar!',
