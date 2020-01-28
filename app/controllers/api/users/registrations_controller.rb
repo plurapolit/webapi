@@ -5,6 +5,8 @@ module Api
     class RegistrationsController < Devise::RegistrationsController
       respond_to :json
 
+      SUCCESS_MESSAGE = 'Erfolgreich angemeldet!'
+
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def create
         build_resource(sign_up_params)
@@ -33,7 +35,8 @@ module Api
 
       def render_create_json
         render json: { user: resource,
-                       token: current_token }.to_json, status: :created
+                       token: current_token,
+                       msg: SUCCESS_MESSAGE }.to_json, status: :created
       end
     end
   end

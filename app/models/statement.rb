@@ -17,13 +17,20 @@ class Statement < ApplicationRecord
   enum status: { pending: 0, accepted: 1, rejected: 2 }
 
   scope :from_experts, lambda {
-    joins(:user)
+    includes(user: [{ avatar_attachment: :blob }, { organisation: { avatar_attachment: :blob } }])
+      .joins(:user)
       .where('users.role = 1')
   }
 
   scope :from_community, lambda {
-    joins(:user)
+    includes(user: [:age_range, { avatar_attachment: :blob }])
+      .joins(:user)
       .where('users.role = 0')
+  }
+
+  scope :without_comments, lambda {
+    left_outer_joins(:sent_comment)
+      .where('comments.sender_id IS NULL')
   }
 
   scope :sorted_by_likes, lambda {

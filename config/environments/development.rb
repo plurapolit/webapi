@@ -52,5 +52,6 @@ Rails.application.configure do
     Bullet.console = true
     Bullet.add_footer = true
     Bullet.raise = false
+    Bullet.bullet_logger = true
   end
 end

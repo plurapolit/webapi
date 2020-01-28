@@ -58,27 +58,33 @@ end
 end
 
 puts 'Creating statements'
+audio_files = [
+  'http://www.hochmuth.com/mp3/Beethoven_12_Variation.mp3', 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3',
+  'http://www.hochmuth.com/mp3/Vivaldi_Sonata_eminor_.mp3', 'http://www.hochmuth.com/mp3/Bloch_Prayer.mp3',
+  'http://www.hochmuth.com/mp3/Tchaikovsky_Rococo_Var_orch.mp3'
+]
+
 10.times do |panel|
   9.times do |user|
     expert = Statement.create!(
       quote: Faker::Coffee.notes,
       user: User.expert[user - 1],
       panel: Panel.all[panel - 1],
-      status: rand(0..2)
+      status: rand(0..1)
     )
     community = Statement.create!(
       quote: Faker::Coffee.notes,
       user: User.default.order('RANDOM()').first,
       panel: Panel.all[panel - 1],
-      status: rand(0..2)
+      status: rand(0..1)
     )
 
-    AudioFile.create!(file_link: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3',
-                      duration_seconds: 90, statement: expert)
+    AudioFile.create!(file_link: audio_files.sample,
+                      duration_seconds: rand(60..120), statement: expert)
 
     AudioFile.create!(
-      file_link: 'http://www.hochmuth.com/mp3/Tchaikovsky_Nocturne__orch.mp3',
-      duration_seconds: 120, statement: community
+      file_link: audio_files.sample,
+      duration_seconds: rand(60..120), statement: community
     )
   end
 end
@@ -95,10 +101,10 @@ puts 'Creating comments'
     quote: 'Das ist ein Kommentar!',
     user: User.default.order('RANDOM()').first,
     panel: recipient.panel,
-    status: rand(0..2)
+    status: 1
   )
-  AudioFile.create!(file_link: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3',
-                    duration_seconds: 90, statement: comment)
+  AudioFile.create!(file_link: audio_files.sample,
+                    duration_seconds: rand(60..120), statement: comment)
   Comment.create!(sender: comment, recipient: recipient)
 end
 
