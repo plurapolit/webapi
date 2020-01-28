@@ -1,0 +1,24 @@
+<%- model_class = Feedback -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td><%= feedback.id %></td>
+        <td><%= feedback.email %></td>
+        <td><%= feedback.description %></td>
+        <td><%=l feedback.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -89,6 +89,16 @@ BODY:
 |DELETE|`/api/statements/:statement_id/likes`|Unlikes a statement| Bearer token must be present in header | Should return 204 |
 |GET|`/api/slugs`|Get all slugs with corresponding panel id||Should return 200|
 |GET|`/api/authenticate`|Check if token is still valid|Bearer token must be present in header|Should return 200|
+|POST|`/api/feedbacks/`|Sends feedback| NO BEARER neccessary | Should return 201 |
+```
+BODY:
+	{
+		"feedback": {
+			"description": "this is lit",
+			"email": "me@robin.com"
+		}
+	}
+```
 
 ## Age Ranges
 | ID | Start Age  |  End Age |
