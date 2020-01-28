@@ -5,7 +5,10 @@ json.category_avatar_key @category.avatar.blob.key if @category.avatar.attached?
 json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
 json.panel_avatar_key @panel.avatar.blob.key if @panel.avatar.attached?
 
+num_experts = 1
 json.expert_statements @statements_from_experts do |statement|
+  json.index num_experts
+  num_experts += 1
   json.statement statement, :id, :quote, :created_at
   json.number_of_comments Comment.of_statement(statement).count
   json.likes do
@@ -24,7 +27,10 @@ json.expert_statements @statements_from_experts do |statement|
   json.user_avatar_key user.avatar.blob.key if user.avatar.attached?
 end
 
+num_community = 1
 json.community_statements @statements_from_community do |statement|
+  json.index num_community
+  num_community += 1
   json.statement statement, :id, :quote, :created_at
   json.number_of_comments Comment.of_statement(statement).count
   json.likes do
