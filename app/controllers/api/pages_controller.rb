@@ -6,7 +6,8 @@ module Api
 
     def authenticate
       authenticate_user!
-      head :ok
+
+      render json: { user: current_user }, status: :ok
     end
   end
 end
