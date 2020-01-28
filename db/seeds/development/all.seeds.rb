@@ -89,7 +89,7 @@ AgeRange.create!([
                  ])
 
 puts 'Creating comments'
-30.times do
+200.times do
   recipient = Statement.find(rand(1..90))
   comment = Statement.create!(
     quote: 'Das ist ein Kommentar!',
