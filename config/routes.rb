@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
     resources :panels, only: %i[show index]
     resources :slugs, only: :index
+    get 'authenticate', to: 'pages#authenticate'
   end
 
   devise_for :users, module: 'api/users',
