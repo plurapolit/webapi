@@ -63,7 +63,17 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "webapi_production"
 
   config.action_mailer.perform_caching = false
-
+  config.action_mailer.default_url_options = { host: 'https://staging.plurapolit.de' }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    domain: 'plurapolit.de',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    user_name: 'apikey',
+    password: Rails.application.credentials.dig(:sendgrid_api)
+  }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

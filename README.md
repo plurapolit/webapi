@@ -18,30 +18,34 @@ Production can be found here: https://webapi-prod-lb-379596049.eu-central-1.elb.
 BODY:
 
 {
-	"user": {
-        "email": "myemail@hotmail.de",
-        "password": "secret"
+    "user": {
+	"email": "myemail@hotmail.de",
+	"password": "secret"
     }
 }
 ```
 
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
-|POST| `/api/users/sign_up`  |  Registration for the user || Should return 201 |
+|POST| `/api/users/`  |  Registration for the user || Should return 201 |
 ```
 BODY:
 
 {
-	"user": {
-        "email": "myemail@hotmail.de",
-        "password": "secret",
-        "first_name": "Max",
-        "last_name": "Müller"
+    "user": {
+	"email": "myemail@hotmail.de",
+	"password": "secret",
+	"first_name": "Max",
+	"last_name": "Müller",
+	"age_range_id: "2"
     }
 }
 ```
+See info about age range on bottom: [Age Ranges](#age-ranges) </br>
+
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
+|DELETE|`/api/users/sign_out`|Signs the user out| Bearer token must be present in header | Should return 204 |
 |POST|`/api/statements`|Creates a statement for a panel| Bearer token must be present in header | Should return 201 |
 ```
 BODY:
@@ -80,6 +84,27 @@ BODY:
 |DELETE|`/api/statements/:statement_id/comments/:comment_id`|Deletes a comment for a statement| Bearer token must be present in header | Should return 204 |
 |GET|`/api/statements/:statement_id/comments/`|Get all comments for a statement| | Should return 200 |
 |GET|`/api/panels/:id`|Get a specific panel with all statements and # of comments and likes| | Should return 200 |
+|GET|`/api/panels/`|Get all categories and panels| | Should return 200 |
 |POST|`/api/statements/:statement_id/likes`|Likes a statement| Bearer token must be present in header | Should return 201 |
 |DELETE|`/api/statements/:statement_id/likes`|Unlikes a statement| Bearer token must be present in header | Should return 204 |
 |GET|`/api/slugs`|Get all slugs with corresponding panel id||Should return 200|
+|GET|`/api/authenticate`|Check if token is still valid|Bearer token must be present in header|Should return 200|
+|POST|`/api/feedbacks/`|Sends feedback| NO BEARER neccessary | Should return 201 |
+```
+BODY:
+	{
+		"feedback": {
+			"description": "this is lit",
+			"email": "me@robin.com"
+		}
+	}
+```
+
+## Age Ranges
+| ID | Start Age  |  End Age |
+|---|---|---|
+|1|NULL|15|
+|2|16|28|
+|3|29|44|
+|4|45|60|
+|5|61|NULL|

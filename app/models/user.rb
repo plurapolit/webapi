@@ -18,11 +18,24 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+         :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   self.skip_session_storage = %i[http_auth params_auth]
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def avatar_service_link
+    return unless avatar.attached?
+
+    blob = avatar.blob.key
+    if Rails.env.production?
+      "https://plurapolit-webapi-prod-media.s3.eu-central-1.amazonaws.com/#{blob}"
+    elsif Rails.env.staging?
+      "https://plurapolit-webapi-staging-media.s3.eu-central-1.amazonaws.com/#{blob}"
+    else
+      "https://plurapolit-webapi-dev-media.s3.eu-central-1.amazonaws.com/#{blob}"
+    end
   end
 end

@@ -7,8 +7,9 @@ class Comment < ApplicationRecord
   belongs_to :recipient, class_name: 'Statement'
 
   scope :of_statement, lambda { |statement|
-    joins(:sender)
+    includes(:sender)
+      .joins(:sender)
       .where(recipient: statement)
-      .merge(Statement.accepted)
+      .merge(Statement.accepted.includes(:audio_file, user: [:age_range, :organisation, { avatar_attachment: :blob }]))
   }
 end
