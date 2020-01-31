@@ -67,7 +67,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    domain: 'plurapolit.de',
+    domain: 'staging.plurapolit.de',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
