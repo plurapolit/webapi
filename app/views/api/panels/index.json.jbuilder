@@ -12,6 +12,7 @@ json.categories @categories do |category|
       if statement.user.organisation.avatar.attached?
         json.organisation_avatar statement.user.organisation.avatar.blob.key
       end
+      json.organisation_name statement.user.organisation.name
     end
   end
 end

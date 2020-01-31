@@ -17,7 +17,7 @@ json.expert_statements @statements_from_experts do |statement|
   end
   json.statement_audio_file statement.audio_file, :file_link, :duration_seconds
   user = statement.user
-  json.user user, :full_name, :role
+  json.user user, :full_name, :role, :biography
   if user.organisation.present?
     json.organisation do
       json.name user.organisation.name

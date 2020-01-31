@@ -16,7 +16,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :organisation, presence: true, if: -> { expert? }
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
