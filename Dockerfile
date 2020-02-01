@@ -1,6 +1,6 @@
 ######################
 # Stage: Builder
-FROM ruby:2.6.5-alpine as Builder
+FROM ruby:2.6.5 as Builder
 
 ARG RAILS_ENV
 
@@ -8,13 +8,14 @@ ENV RAILS_ENV ${RAILS_ENV}
 ENV SECRET_KEY_BASE=foo
 ENV RAILS_SERVE_STATIC_FILES=true
 
-RUN apk add --update --no-cache \
-    build-base \
-    postgresql-dev \
-    git \
+RUN apt-get update \
+    && apt-get install -y locales \
+    build-essential \
+    postgresql-client \
     nodejs \
     yarn \
-    tzdata
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && /usr/sbin/locale-gen &&\
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -42,16 +43,16 @@ RUN bundle exec rake assets:precompile
 
 ###############################
 # Stage Final
-FROM ruby:2.6.5-alpine
+FROM ruby:2.6.5
 
 ARG ADDITIONAL_PACKAGES
 
 # Add Alpine packages
-RUN apk add --update --no-cache \
+RUN apt-get update \
+    && apt-get install -y locales \
     postgresql-client \
-    $ADDITIONAL_PACKAGES \
-    tzdata \
-    file
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && /usr/sbin/locale-gen &&\
+    rm -rf /var/lib/apt/lists/*
 
 # Add user
 RUN addgroup -g 1000 -S app \
