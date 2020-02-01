@@ -3,9 +3,10 @@
 module Api
   module Users
     class RegistrationsController < Devise::RegistrationsController
+      # include Devise::Mailer
       respond_to :json
 
-      SUCCESS_MESSAGE = 'Erfolgreich angemeldet!'
+      SUCCESS_MESSAGE = 'Erfolgreich angemeldet! Bitte bestätige deine E-Mail Adresse in deinem E-Mail Postfach.'
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def create
