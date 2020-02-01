@@ -24,9 +24,7 @@ RUN gem install bundler \
  && bundle config --global frozen 1 \
  && bundle install -j4 --retry 3 \
  # Remove unneeded files (cached *.gem, *.o, *.c)
- && rm -rf /usr/local/bundle/cache/*.gem \
- && find /usr/local/bundle/gems/ -name "*.c" -delete \
- && find /usr/local/bundle/gems/ -name "*.o" -delete
+ && rm -rf /usr/local/bundle/cache/*.gem
 
 # Install yarn packages
 COPY package.json yarn.lock /app/
