@@ -1,6 +1,6 @@
 ######################
 # Stage: Builder
-FROM ruby:2.6.5 as Builder
+FROM ruby:2.6.5-alpine as Builder
 
 ARG RAILS_ENV
 
@@ -8,14 +8,13 @@ ENV RAILS_ENV ${RAILS_ENV}
 ENV SECRET_KEY_BASE=foo
 ENV RAILS_SERVE_STATIC_FILES=true
 
-RUN apt-get update \
-    && apt-get install -y locales \
-    build-essential \
-    postgresql-client \
+RUN apk add --update --no-cache \
+    build-base \
+    postgresql-dev \
+    git \
     nodejs \
     yarn \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && /usr/sbin/locale-gen &&\
-    rm -rf /var/lib/apt/lists/*
+    tzdata
 
 WORKDIR /app
 
@@ -25,9 +24,7 @@ RUN gem install bundler \
  && bundle config --global frozen 1 \
  && bundle install -j4 --retry 3 \
  # Remove unneeded files (cached *.gem, *.o, *.c)
- && rm -rf /usr/local/bundle/cache/*.gem \
- && find /usr/local/bundle/gems/ -name "*.c" -delete \
- && find /usr/local/bundle/gems/ -name "*.o" -delete
+ && rm -rf /usr/local/bundle/cache/*.gem
 
 # Install yarn packages
 COPY package.json yarn.lock /app/
@@ -43,16 +40,16 @@ RUN bundle exec rake assets:precompile
 
 ###############################
 # Stage Final
-FROM ruby:2.6.5
+FROM ruby:2.6.5-alpine
 
 ARG ADDITIONAL_PACKAGES
 
 # Add Alpine packages
-RUN apt-get update \
-    && apt-get install -y locales \
+RUN apk add --update --no-cache \
     postgresql-client \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && /usr/sbin/locale-gen &&\
-    rm -rf /var/lib/apt/lists/*
+    $ADDITIONAL_PACKAGES \
+    tzdata \
+    file
 
 # Add user
 RUN addgroup -g 1000 -S app \
