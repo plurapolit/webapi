@@ -21,7 +21,8 @@ WORKDIR /app
 # Install gems
 ADD Gemfile* /app/
 RUN gem install bundler \
-    && bundle install -j4 --retry 3
+ && bundle config --global frozen 1 \
+ && bundle install -j4 --retry 3
 
 # Install yarn packages
 COPY package.json yarn.lock /app/
