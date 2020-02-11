@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Logging into Amazon ECR...
+      - $(aws ecr get-login --region eu-central-1 --no-include-email)
+      - REPOSITORY_URI=837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - echo Forcing new deployment
+      - aws ecs update-service --cluster webapi-cluster --service webapi-web-staging --force-new-deployment --region eu-central-1
