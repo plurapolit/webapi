@@ -38,12 +38,15 @@ puts 'Creating panels'
   pa.avatar.attach(io: File.open(seed_fixtures_path('co2.jpg')), filename: 'co2.jpg')
 end
 
+twitter_handles = ['plurapolit', nil, '']
+website_links = ['https://www.sueddeutsche.de/', nil, '']
+
 puts 'Creating users'
 9.times do |num|
   u = User.create!(
     first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
     role: :expert, organisation: Organisation.all[num - 1], email: "#{Faker::Internet.email}#{num}",
-    password: 'secret'
+    password: 'secret', twitter_handle: twitter_handles.sample, website_link: website_links.sample
   )
   u.avatar.attach(io: File.open(seed_fixtures_path('baerbock.jpg')), filename: 'baerbock.jpg')
 end

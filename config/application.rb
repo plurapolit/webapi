@@ -17,8 +17,10 @@ module Webapi
     ActiveStorage::Engine.config .active_storage .content_types_to_serve_as_binary .delete('image/svg+xml')
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
-        resource '*', headers: :any, methods: %i[delete get post options]
+        origins 'http://localhost:3000', 'http://localhost:3004',
+                'http://staging.plurapolit.de', 'https://staging.plurapolit.de',
+                'http://plurapolit.de', 'https://plurapolit.de'
+        resource '*', headers: :any, methods: %i[delete get post put options]
       end
     end
   end
