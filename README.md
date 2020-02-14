@@ -64,6 +64,32 @@ BODY:
 ```
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
+|POST|`/api/users/password`|Sends E-Mail to reset password| | Should return 201 |
+```
+BODY:
+
+{
+	"user": {
+        "email": "foo@bar.com"
+    }
+}
+```
+| HTTP Method | Endpoint  |  Description | Notes | Desired status code |
+|---|---|---|---|---|
+|PATCH|`/api/users/password`|Resets the password| reset token is gotten from URL (sent by email) | Should return 204 |
+```
+BODY:
+
+{
+	"user": {
+        "password": "seedlog",
+        "password_confirmation": "seedlog",
+        "reset_password_token": "aZQpjuuAzN8QbczqD-_x"
+    }
+}
+```
+| HTTP Method | Endpoint  |  Description | Notes | Desired status code |
+|---|---|---|---|---|
 |DELETE|`/api/statements/:id`|Deletes a statement  for a panel| Bearer token must be present in header | Should return 204 |
 |POST|`/api/statements/:id/comments`|Creates a comment for a statement| Bearer token must be present in header | Should return 201 |
 ```
