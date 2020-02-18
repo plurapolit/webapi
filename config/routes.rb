@@ -16,6 +16,12 @@ Rails.application.routes.draw do
         patch :reject
       end
     end
+    resources :comments, except: [:show] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
   end
 
   namespace 'api', defaults: { format: :json } do

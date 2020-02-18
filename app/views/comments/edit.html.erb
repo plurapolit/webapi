@@ -1,0 +1,5 @@
+<%- model_class = Comment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => 'Comment' %></h1>
+</div>
+<%= render 'form', comment: @comment, method: :patch, url: comment_path %>
