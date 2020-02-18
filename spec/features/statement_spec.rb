@@ -22,6 +22,14 @@ RSpec.describe 'Statement Features', type: :feature do
       visit '/statements'
       expect(page).to have_content('This is my statement!').and have_content('Second Statement')
     end
+
+    it 'does not show comments' do
+      comment_statement = create(:statement, quote: 'My comment', user: user, panel: panel)
+      create(:audio_file, statement: comment_statement)
+      create(:comment, sender: comment_statement, recipient: statement)
+      visit '/statements'
+      expect(page).not_to have_content('My comment')
+    end
   end
 
   it 'can be edited' do
