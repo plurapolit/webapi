@@ -11,8 +11,12 @@ module Api
     def index
       @statement = Statement.find(params[:statement_id])
       @comments = sorted_and_accepted_comments(@statement)
-      @like_count_of_most_liked_comment = like_count_of_most_liked_comment(@comments.first)
-      render :index, status: :ok
+      if @comments.any?
+        @like_count_of_most_liked_comment = like_count_of_most_liked_comment(@comments.first)
+        render :index, status: :ok
+      else
+        head :no_content
+      end
     end
 
     def create
@@ -80,13 +84,13 @@ module Api
 
     def sorted_and_accepted_comments(statement)
       comments = Comment.of_statement(statement).sort_by { |comment| comment.sender.likes.count }.reverse
-      return sorted_comments_with_expert_on_second_position(comments) if array_has_expert?(comments)
+      return sorted_comments_with_expert_on_second_position(comments) if array_has_experts?(comments)
 
       comments
     end
 
-    def array_has_expert?(comments)
-      comments.any?(&expert_in_array)
+    def array_has_experts?(comments)
+      comments.any?(&expert_in_array) && comments.length > 1
     end
 
     def expert_array_index(comments)

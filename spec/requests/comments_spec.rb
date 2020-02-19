@@ -21,6 +21,11 @@ RSpec.describe 'Comments requests', type: :request do
       get "/api/statements/#{statement.id}/comments"
       expect(JSON.parse(body)['comments'].length).to eq(2)
     end
+
+    it 'works with 0 comments' do
+      get "/api/statements/#{statement.id}/comments"
+      expect(response.status).to eq(204)
+    end
   end
 
   describe 'creation' do
