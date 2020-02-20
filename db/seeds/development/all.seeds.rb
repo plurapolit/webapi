@@ -98,7 +98,7 @@ AgeRange.create!([
                  ])
 
 puts 'Creating comments'
-200.times do
+300.times do
   recipient = Statement.find(rand(1..90))
   comment = Statement.create!(
     quote: 'Das ist ein Kommentar!',
@@ -109,6 +109,19 @@ puts 'Creating comments'
   AudioFile.create!(file_link: audio_files.sample,
                     duration_seconds: rand(60..120), statement: comment)
   Comment.create!(sender: comment, recipient: recipient)
+end
+
+puts 'Creating comments of experts'
+Statement.limit(90).map do |statement|
+  comment = Statement.create!(
+    quote: 'Das ist ein Kommentar eines Experten!',
+    user: statement.user,
+    panel: statement.panel,
+    status: 1
+  )
+  AudioFile.create!(file_link: audio_files.sample,
+                    duration_seconds: rand(60..120), statement: comment)
+  Comment.create!(sender: comment, recipient: statement)
 end
 
 puts 'Creating Likes'

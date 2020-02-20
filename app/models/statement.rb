@@ -33,6 +33,11 @@ class Statement < ApplicationRecord
       .where('comments.sender_id IS NULL')
   }
 
+  scope :only_comments, lambda {
+    joins(:sent_comment)
+      .where('comments.sender_id IS NOT NULL')
+  }
+
   scope :sorted_by_likes, lambda {
     left_outer_joins(:likes)
       .group('statements.id')
