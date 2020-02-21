@@ -7,7 +7,11 @@ Production can be found here: https://webapi-prod-lb-379596049.eu-central-1.elb.
 
 ## Project Setup
 1. Install "Ruby" and "Ruby Solargraph" VSCode extensions (VSCode only)
-2. To log into the webapi in development mode, use the seeded admin `caspar@plurapolit.de` with PW `seedlog`
+2. If not done before, install mailcatcher: `gem install mailcatcher`
+3. Then to use it just run `mailcatcher`
+4. Now go to localhost:1080 to see all mails, that would be sent out
+5. To seed the development environment run `rails db:seed`
+6. To log into the webapi in development mode, use the seeded admin `caspar@plurapolit.de` with PW `seedlog`
 
 ## API Enpoints
 
@@ -124,6 +128,16 @@ BODY:
 			"email": "me@robin.com"
 		}
 	}
+```
+|POST|`/api/user_audio_trackings/`|Sends user audio tracking| NO BEARER neccessary, user_id optional | Should return 201 |
+```
+BODY:
+  {
+    "user_id": 1,
+    "statement_id": 1,
+    "current_position_in_seconds": 80,
+    "seconds_listened": 80
+  }
 ```
 
 ## Age Ranges
