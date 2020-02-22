@@ -139,6 +139,14 @@ BODY:
     "playtime_in_seconds": 80
   }
 ```
+|PUT|`/api/user_audio_trackings/:id`|Updates user audio tracking| NO BEARER neccessary | Should return 204 |
+```
+BODY:
+  {
+    "current_position_in_seconds": 80,
+    "playtime_in_seconds": 80
+  }
+```
 
 ## Age Ranges
 | ID | Start Age  |  End Age |
