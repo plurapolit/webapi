@@ -136,7 +136,7 @@ BODY:
     "user_id": 1,
     "statement_id": 1,
     "current_position_in_seconds": 80,
-    "seconds_listened": 80
+    "playtime_in_seconds": 80
   }
 ```
 
