@@ -7,6 +7,7 @@ class User < ApplicationRecord
   enum role: { default: 0, expert: 1 }
   has_many :likes
   has_many :statements
+  has_many :user_audio_trackings
 
   has_one_attached :avatar
   validates :avatar, content_type: {

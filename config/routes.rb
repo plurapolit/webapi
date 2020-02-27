@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :panels, only: %i[show index]
     resources :slugs, only: :index
     resources :feedbacks, only: :create
+    resources :user_audio_trackings, only: %i[create update]
     get 'authenticate', to: 'pages#authenticate'
   end
 

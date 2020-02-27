@@ -7,6 +7,7 @@ class Statement < ApplicationRecord
   has_one :sent_comment, class_name: 'Comment', foreign_key: 'sender_id'
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
   has_many :likes
+  has_many :user_audio_trackings
 
   belongs_to :panel
   belongs_to :user

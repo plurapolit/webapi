@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_152259) do
+ActiveRecord::Schema.define(version: 2020_02_22_135111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,17 @@ ActiveRecord::Schema.define(version: 2020_01_28_152259) do
     t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
+  create_table "user_audio_trackings", force: :cascade do |t|
+    t.integer "current_position_in_seconds"
+    t.integer "playtime_in_seconds"
+    t.bigint "user_id"
+    t.bigint "statement_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["statement_id"], name: "index_user_audio_trackings_on_statement_id"
+    t.index ["user_id"], name: "index_user_audio_trackings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.bigint "organisation_id"
     t.integer "role", default: 0
@@ -180,5 +191,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_152259) do
   add_foreign_key "panels", "categories"
   add_foreign_key "statements", "panels"
   add_foreign_key "statements", "users"
+  add_foreign_key "user_audio_trackings", "statements"
+  add_foreign_key "user_audio_trackings", "users"
   add_foreign_key "users", "organisations"
 end
