@@ -4,6 +4,7 @@ json.statement @statement
 json.comments @comments do |comment|
   json.comment comment.sender, :id, :quote, :created_at
   json.audio_file comment.sender.audio_file, :file_link, :duration_seconds
+  json.intro comment.sender.intro, :audio_file_link, :file_name if comment.sender.intro.present?
   user = comment.sender.user
   json.likes do
     comment_likes_count = comment.sender.likes.count

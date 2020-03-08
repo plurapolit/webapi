@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_135111) do
+ActiveRecord::Schema.define(version: 2020_03_07_154959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 2020_02_22_135111) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "intros", force: :cascade do |t|
+    t.string "audio_file_link"
+    t.string "file_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "jwt_blacklists", force: :cascade do |t|
     t.string "jti"
     t.datetime "exp"
@@ -134,7 +141,9 @@ ActiveRecord::Schema.define(version: 2020_02_22_135111) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.bigint "intro_id"
     t.index ["deleted_at"], name: "index_statements_on_deleted_at"
+    t.index ["intro_id"], name: "index_statements_on_intro_id"
     t.index ["panel_id"], name: "index_statements_on_panel_id"
     t.index ["user_id"], name: "index_statements_on_user_id"
   end
@@ -189,6 +198,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_135111) do
   add_foreign_key "likes", "statements"
   add_foreign_key "likes", "users"
   add_foreign_key "panels", "categories"
+  add_foreign_key "statements", "intros"
   add_foreign_key "statements", "panels"
   add_foreign_key "statements", "users"
   add_foreign_key "user_audio_trackings", "statements"

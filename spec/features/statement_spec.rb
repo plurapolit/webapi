@@ -72,4 +72,9 @@ RSpec.describe 'Statement Features', type: :feature do
       expect(page).to have_content('Statement was accepted.')
     end
   end
+
+  it 'is possible to create an intro for the statement' do
+    click_on 'Create intro'
+    expect(page).to have_content('Intro for statement was created.')
+  end
 end

@@ -83,4 +83,9 @@ RSpec.describe 'Comments Features', type: :feature do
       expect(page).to have_content('Comment was accepted.')
     end
   end
+
+  it 'is possible to create an intro for the comment' do
+    click_on 'Create intro'
+    expect(page).to have_content('Intro for comment was created.')
+  end
 end
