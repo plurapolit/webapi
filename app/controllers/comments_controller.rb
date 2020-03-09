@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[edit update destroy accept reject]
+  before_action :set_comment, only: %i[edit update destroy accept reject create_intro]
 
   def index
-    @comments = Statement.only_comments.includes(%i[panel user audio_file sent_comment]).order(created_at: :desc)
+    @comments = Statement.only_comments.includes(%i[panel user audio_file sent_comment intro]).order(created_at: :desc)
   end
 
   def new
@@ -49,6 +49,11 @@ class CommentsController < ApplicationController
   def reject
     @comment.rejected!
     redirect_to comments_path, alert: 'Comment was rejected.'
+  end
+
+  def create_intro
+    @comment.create_intro
+    redirect_to comments_path, notice: 'Intro for comment was created.'
   end
 
   private

@@ -14,12 +14,14 @@ Rails.application.routes.draw do
       member do
         patch :accept
         patch :reject
+        patch :create_intro
       end
     end
     resources :comments, except: [:show] do
       member do
         patch :accept
         patch :reject
+        patch :create_intro
       end
     end
   end

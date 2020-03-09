@@ -12,6 +12,7 @@
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:quote) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
+      <th>Has intro?</th>
       <th></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -27,6 +28,7 @@
         <td><%= comment.user.full_name %></td>
         <td><%= comment.quote %></td>
         <td><%= comment.status %></td>
+        <td style="color: <%= comment.intro.present? ? 'green' : 'red' %>"><%= comment.intro.present? %></td>
         <td>
           <%= link_to 'Accept', accept_comment_path(comment),
               method: :patch, class: 'btn btn-success btn-xs' %>
@@ -42,6 +44,8 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
+          <%= link_to 'Create intro',
+            create_intro_comment_path(comment), method: :patch, :class => 'btn btn-default btn-xs' %>
         </td>
       </tr>
     <% end %>
