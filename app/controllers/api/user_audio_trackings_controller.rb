@@ -26,7 +26,7 @@ module Api
 
     def user_audio_tracking_params
       params.require(:user_audio_tracking).permit(
-        :user_id, :statement_id, :current_position_in_seconds, :playtime_in_seconds
+        :user_id, :statement_id, :current_position_in_seconds, :playtime_in_seconds, :is_intro
       )
     end
   end
