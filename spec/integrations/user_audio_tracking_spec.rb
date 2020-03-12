@@ -22,4 +22,14 @@ RSpec.describe 'User Audio Tracking' do
   it 'is associated with a statement' do
     expect(user_audio_tracking.statement).to eq(statement)
   end
+
+  it 'by default is not classified as intro' do
+    expect(user_audio_tracking.is_intro).to be(false)
+  end
+
+  it 'can be classified as intro' do
+    tracking_as_intro = build :user_audio_tracking, statement: statement, is_intro: true
+    tracking_as_intro.save
+    expect(tracking_as_intro.is_intro).to be(true)
+  end
 end

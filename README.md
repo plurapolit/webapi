@@ -129,14 +129,15 @@ BODY:
 		}
 	}
 ```
-|POST|`/api/user_audio_trackings/`|Sends user audio tracking| NO BEARER neccessary, user_id optional | Should return 201 |
+|POST|`/api/user_audio_trackings/`|Sends user audio tracking| NO BEARER neccessary, user_id optional, is_intro only neccessary if it is an intro | Should return 201 |
 ```
 BODY:
   {
     "user_id": 1,
     "statement_id": 1,
     "current_position_in_seconds": 80,
-    "playtime_in_seconds": 80
+    "playtime_in_seconds": 80,
+    "is_intro": true
   }
 ```
 |PUT|`/api/user_audio_trackings/:id`|Updates user audio tracking| NO BEARER neccessary | Should return 204 |
