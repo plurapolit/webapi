@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Statement < ApplicationRecord
+  after_create :create_intro
   acts_as_paranoid
   has_one :audio_file
   accepts_nested_attributes_for :audio_file
@@ -11,9 +12,11 @@ class Statement < ApplicationRecord
 
   belongs_to :panel
   belongs_to :user
+  belongs_to :intro, optional: true
 
   delegate :title, to: :panel, prefix: true
   delegate :file_link, to: :audio_file, prefix: true
+  delegate :name, to: :organisation, prefix: true
 
   enum status: { pending: 0, accepted: 1, rejected: 2 }
 
@@ -47,5 +50,35 @@ class Statement < ApplicationRecord
 
   def liked_by?(user)
     likes.exists?(user: user)
+  end
+
+  def create_intro
+    created_intro = intro_service
+    intro = Intro.create!(
+      audio_file_link: created_intro['link'],
+      file_name: created_intro['filename']
+    )
+    self.intro_id = intro.id
+    save!
+  end
+
+  private
+
+  def intro_service
+    IntroService.new(
+      bucket_name: bucket_name,
+      dir_name: 'intros',
+      first_name: user.first_name,
+      last_name: user.last_name,
+      party: (user.organisation_name if user.organisation),
+      date: created_at.strftime('%d.%m.%Y')
+    ).create_intro
+  end
+
+  def bucket_name
+    return 'plurapolit-webapi-prod-media' if Rails.env.production?
+    return 'plurapolit-webapi-staging-media' if Rails.env.staging?
+
+    'plurapolit-webapi-dev-media'
   end
 end

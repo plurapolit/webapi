@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class StatementsController < ApplicationController
-  before_action :set_statement, only: %i[edit update destroy accept reject]
+  before_action :set_statement, only: %i[edit update destroy accept reject create_intro]
 
   def index
-    @statements = Statement.without_comments.includes(%i[panel user audio_file]).order(created_at: :desc)
+    @statements = Statement.without_comments.includes(%i[panel user audio_file intro]).order(created_at: :desc)
   end
 
   def new
@@ -46,6 +46,11 @@ class StatementsController < ApplicationController
   def reject
     @statement.rejected!
     redirect_to statements_path, alert: 'Statement was rejected.'
+  end
+
+  def create_intro
+    @statement.create_intro
+    redirect_to statements_path, notice: 'Intro for statement was created.'
   end
 
   private

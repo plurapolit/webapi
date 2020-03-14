@@ -16,6 +16,7 @@ json.expert_statements @statements_from_experts do |statement|
     json.liked_by_current_user statement.liked_by?(current_user)
   end
   json.statement_audio_file statement.audio_file, :file_link, :duration_seconds
+  json.intro statement.intro, :audio_file_link, :file_name if statement.intro.present?
   user = statement.user
   json.user user, :full_name, :role, :biography, :website_link, :twitter_handle, :facebook_handle, :linkedin_handle
   if user.organisation.present?

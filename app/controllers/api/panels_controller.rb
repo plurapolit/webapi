@@ -18,6 +18,7 @@ module Api
       @statements_from_experts = @panel.statements
                                        .includes(
                                          :audio_file,
+                                         :intro,
                                          user: [
                                            { avatar_attachment: :blob },
                                            { organisation: { avatar_attachment: :blob } }
