@@ -34,6 +34,12 @@ RSpec.describe 'Comments requests', type: :request do
       post "/api/statements/#{statement.id}/comments", headers: auth_headers, params: create_comment_body
       expect(response.status).to eq(201)
     end
+
+    it 'can be a text comment' do
+      auth_headers = Devise::JWT::TestHelpers.auth_headers(headers, sender)
+      post "/api/statements/#{statement.id}/comments", headers: auth_headers, params: create_text_comment_body
+      expect(response.status).to eq(201)
+    end
   end
 
   describe 'deletion' do
@@ -65,6 +71,17 @@ def create_comment_body
     audio_file: {
       file_link: 'https://mysong.de/test.mp3',
       duration_seconds: 99
+    }
+  }.to_json
+end
+
+def create_text_comment_body
+  {
+    comment: {
+      quote: ''
+    },
+    text_record: {
+      content: 'I respectfully am a ball.'
     }
   }.to_json
 end
