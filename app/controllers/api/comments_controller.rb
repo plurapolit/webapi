@@ -39,7 +39,7 @@ module Api
         render json: comment_from_current_user.errors, status: :unprocessable_entity
       end
     rescue ActiveRecord::RecordNotFound
-      forbidden
+      head :forbidden
     end
 
     private
@@ -48,10 +48,19 @@ module Api
       Statement.find(params[:statement_id])
     end
 
+    def new_statement
+      Statement.new(user: current_user, panel: recipient.panel, quote: params[:comment][:quote])
+    end
+
     def new_sender
-      statement = Statement.new(user: current_user, panel: recipient.panel, quote: params[:comment][:quote])
-      statement.build_audio_file(audio_file_params)
-      statement.audio_file.save! if statement.save!
+      statement = new_statement
+      if params[:audio_file]
+        statement.build_audio_file(audio_file_params)
+        statement.audio_file.save! if statement.save!
+      else
+        statement.build_text_record(text_record_params)
+        statement.text_record.save! if statement.save!
+      end
       statement
     end
 
@@ -62,11 +71,17 @@ module Api
       }
     end
 
+    def text_record_params
+      { content: params[:text_record][:content] }
+    end
+
     def created_json(comment)
-      {
-        comment: comment, statement: comment.sender,
-        audio_file: comment.sender.audio_file, message: SUCCESS_CREATE_MESSAGE
-      }.to_json
+      comment_content = if comment.sender.audio_file.present?
+                          { audio_file: comment.sender.audio_file }
+                        else
+                          { text_record: comment.sender.text_record }
+                        end
+      { comment: comment, statement: comment.sender, message: SUCCESS_CREATE_MESSAGE }.merge(comment_content).to_json
     end
 
     def comment_from_current_user
@@ -76,10 +91,6 @@ module Api
     def sender
       statement_id = Comment.find(params[:id]).sender_id
       current_user.statements.find(statement_id)
-    end
-
-    def forbidden
-      head :forbidden
     end
 
     def sorted_and_accepted_comments(statement)

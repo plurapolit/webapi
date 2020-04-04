@@ -8,7 +8,7 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th>Belonging to statement</th>
       <th><%= model_class.human_attribute_name(:panel_id) %></th>
-      <th><%= model_class.human_attribute_name(:audio_file_id) %></th>
+      <th>Audio oder Text</th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:quote) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
@@ -24,7 +24,12 @@
         <td><%= comment.id %></td>
         <td><%= link_to comment.sent_comment.recipient_id, statements_path(anchor: comment.sent_comment.recipient_id) %></td>
         <td><%= comment.panel_title %></td>
-        <td><audio src=<%= comment.audio_file_file_link %> controls></audio></td>
+        <% if comment.audio_file %>
+          <td><audio src=<%= comment.audio_file_file_link %> controls></audio></td>
+        <% end %>
+        <% if comment.text_record %>
+          <td><%= comment.text_record.content %></td>
+        <% end %>
         <td><%= comment.user.full_name %></td>
         <td><%= comment.quote %></td>
         <td><%= comment.status %></td>

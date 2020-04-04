@@ -108,6 +108,17 @@ BODY:
       "duration_seconds": "99"
     }
   }
+
+OR (if it is a text comment)
+
+  {
+    "comment": {
+      "quote": "this is a quote"
+    },
+    "text_record": {
+      "content": "My opinion is really valuable to this issue."
+    }
+  }
 ```
 | HTTP Method | Endpoint  |  Description | Notes | Desired status code |
 |---|---|---|---|---|
