@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Statement < ApplicationRecord
-  after_create :create_intro
+  after_create :create_intro, unless: :text_comment?
   acts_as_paranoid
   has_one :audio_file
-  accepts_nested_attributes_for :audio_file
+  has_one :text_record
+  accepts_nested_attributes_for :audio_file, :text_record
   has_one :sent_comment, class_name: 'Comment', foreign_key: 'sender_id'
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
   has_many :likes
@@ -80,5 +81,9 @@ class Statement < ApplicationRecord
     return 'plurapolit-webapi-staging-media' if Rails.env.staging?
 
     'plurapolit-webapi-dev-media'
+  end
+
+  def text_comment?
+    text_record.present?
   end
 end

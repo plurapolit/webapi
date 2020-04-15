@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_171921) do
+ActiveRecord::Schema.define(version: 2020_03_31_131347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,14 @@ ActiveRecord::Schema.define(version: 2020_03_11_171921) do
     t.index ["user_id"], name: "index_statements_on_user_id"
   end
 
+  create_table "text_records", force: :cascade do |t|
+    t.bigint "statement_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["statement_id"], name: "index_text_records_on_statement_id"
+  end
+
   create_table "user_audio_trackings", force: :cascade do |t|
     t.integer "current_position_in_seconds"
     t.integer "playtime_in_seconds"
@@ -202,6 +210,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_171921) do
   add_foreign_key "statements", "intros"
   add_foreign_key "statements", "panels"
   add_foreign_key "statements", "users"
+  add_foreign_key "text_records", "statements"
   add_foreign_key "user_audio_trackings", "statements"
   add_foreign_key "user_audio_trackings", "users"
   add_foreign_key "users", "organisations"

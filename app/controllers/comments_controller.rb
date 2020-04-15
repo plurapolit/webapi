@@ -4,7 +4,10 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[edit update destroy accept reject create_intro]
 
   def index
-    @comments = Statement.only_comments.includes(%i[panel user audio_file sent_comment intro]).order(created_at: :desc)
+    @comments = Statement
+                .only_comments
+                .includes(%i[panel user audio_file sent_comment intro text_record])
+                .order(created_at: :desc)
   end
 
   def new

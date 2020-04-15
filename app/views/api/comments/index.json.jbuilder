@@ -3,7 +3,8 @@
 json.statement @statement
 json.comments @comments do |comment|
   json.comment comment.sender, :id, :quote, :created_at
-  json.audio_file comment.sender.audio_file, :file_link, :duration_seconds
+  json.audio_file comment.sender.audio_file, :file_link, :duration_seconds if comment.sender.audio_file
+  json.text_record comment.sender.text_record, :content if comment.sender.text_record
   json.intro comment.sender.intro, :audio_file_link, :file_name if comment.sender.intro.present?
   user = comment.sender.user
   json.likes do
