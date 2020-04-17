@@ -5,9 +5,9 @@ module ApplicationHelper
     return unless attachment.attached?
 
     if Rails.env.production?
-      ix_image_url(attachment.key, source: 'production')
+      ix_image_url('plurapolit.imgix.net', attachment.key)
     elsif Rails.env.staging?
-      ix_image_url(attachment.key, source: 'staging')
+      ix_image_url('plurapolit-staging.imgix.net', attachment.key)
     else
       rails_blob_url(attachment)
     end
