@@ -34,7 +34,7 @@
         <td><%= user.age_range.range_as_text if user.age_range.present? %></td>
         <td><%= user.biography %></td>
         <% if user.avatar.attached? %>
-          <td><%= image_tag user.avatar_service_link, height: '50' %></td>
+          <td><%= image_tag attached_image_url(user.avatar), height: '50' %></td>
         <% else %>
           <td></td>
         <% end %>
