@@ -25,11 +25,12 @@ module Webapi
 
     config.imgix = {
       sources: {
-        'plurapolit.imgix.com': 'production',
-        'plurapolit-staging.imgix.com': 'staging'
+        'plurapolit.imgix.com' => nil,
+        'plurapolit-staging.imgix.com' => nil
       },
       use_https: true,
-      include_library_param: true
+      include_library_param: true,
+      default_source: 'plurapolit.imgix.com'
     }
   end
 end
