@@ -22,5 +22,15 @@ module Webapi
         resource '*', headers: :any, methods: %i[delete get post put options]
       end
     end
+
+    config.imgix = {
+      sources: {
+        'plurapolit.imgix.net' => nil,
+        'plurapolit-staging.imgix.net' => nil
+      },
+      use_https: true,
+      include_library_param: true,
+      default_source: 'plurapolit.imgix.net'
+    }
   end
 end

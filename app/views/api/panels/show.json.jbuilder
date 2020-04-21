@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 json.category @category
-json.category_avatar_key @category.avatar.blob.key if @category.avatar.attached?
+json.category_avatar attached_image_url(@category.avatar)
 json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
-json.panel_avatar_key @panel.avatar.blob.key if @panel.avatar.attached?
+json.panel_avatar attached_image_url(@panel.avatar)
 
 num_experts = 1
 json.expert_statements @statements_from_experts do |statement|
@@ -22,10 +22,10 @@ json.expert_statements @statements_from_experts do |statement|
   if user.organisation.present?
     json.organisation do
       json.name user.organisation.name
-      json.avatar_key user.organisation.avatar.blob.key if user.organisation.avatar.attached?
+      json.avatar attached_image_url(user.organisation.avatar)
     end
   end
-  json.user_avatar_key user.avatar.blob.key if user.avatar.attached?
+  json.user_avatar attached_image_url(user.avatar)
 end
 
 num_community = 1
@@ -42,5 +42,5 @@ json.community_statements @statements_from_community do |statement|
   user = statement.user
   json.user user, :full_name, :role
   json.age_range user.age_range, :range_as_text if user.age_range.present?
-  json.user_avatar_key user.avatar.blob.key if user.avatar.attached?
+  json.user_avatar attached_image_url(user.avatar)
 end

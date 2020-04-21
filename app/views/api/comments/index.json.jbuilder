@@ -23,8 +23,8 @@ json.comments @comments do |comment|
   if json.organisation.present?
     json.organisation do
       json.name user.organisation.name
-      json.avatar user.organisation.avatar if user.organisation.present?
+      json.avatar attached_image_url(user.organisation.avatar)
     end
   end
-  json.user_avatar user.avatar.blob.key if user.avatar.attached?
+  json.user_avatar attached_image_url(user.avatar)
 end
