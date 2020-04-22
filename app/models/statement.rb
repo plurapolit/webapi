@@ -3,13 +3,13 @@
 class Statement < ApplicationRecord
   after_create :create_intro, unless: :text_comment?
   acts_as_paranoid
-  has_one :audio_file
-  has_one :text_record
+  has_one :audio_file, dependent: :destroy
+  has_one :text_record, dependent: :destroy
   accepts_nested_attributes_for :audio_file, :text_record
   has_one :sent_comment, class_name: 'Comment', foreign_key: 'sender_id'
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
-  has_many :likes
-  has_many :user_audio_trackings
+  has_many :likes, dependent: :destroy
+  has_many :user_audio_trackings, dependent: :destroy
 
   belongs_to :panel
   belongs_to :user
