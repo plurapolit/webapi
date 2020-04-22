@@ -8,7 +8,7 @@ module Api
       @categories = Category.all.includes(
         { panels: [{ avatar_attachment: :blob }] },
         avatar_attachment: :blob
-      )
+      ).order(updated_at: :desc)
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
