@@ -12,6 +12,7 @@
       <th><%= model_class.human_attribute_name(:quote) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th>Has intro?</th>
+      <th>Transcription status</th>
       <th></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -27,6 +28,11 @@
         <td><%= statement.quote %></td>
         <td><%= statement.status %></td>
         <td style="color: <%= statement.intro.present? ? 'green' : 'red' %>"><%= statement.intro.present? %></td>
+        <% if statement.transcription.present? %>
+          <td style="color: <%= statement.transcription.accepted? ? 'green' : 'red' %>"><%= statement.transcription_status %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td>
           <%= link_to 'Accept', accept_statement_path(statement),
               method: :patch, class: 'btn btn-success btn-xs' %>
@@ -44,6 +50,11 @@
                       :class => 'btn btn-xs btn-danger' %>
           <%= link_to 'Create intro',
                       create_intro_statement_path(statement), method: :patch, :class => 'btn btn-default btn-xs' %>
+          <% if statement.transcription.present? %>
+            <%= link_to 'To transcription', transcription_path(statement.transcription), :class => 'btn btn-default btn-xs' %>
+          <% else %>
+            <%= link_to 'Create transcription',  create_transcription_statement_path(statement), method: :patch, :class => 'btn btn-primary btn-xs' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

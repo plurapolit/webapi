@@ -10,11 +10,13 @@ Rails.application.routes.draw do
     resources :categories, except: [:show]
     resources :organisations, except: [:show]
     resources :feedbacks, only: :index
+    resources :transcriptions, except: [:index]
     resources :statements, except: [:show] do
       member do
         patch :accept
         patch :reject
         patch :create_intro
+        patch :create_transcription
       end
     end
     resources :comments, except: [:show] do
