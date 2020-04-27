@@ -50,7 +50,7 @@ RSpec.describe 'Statement Features', type: :feature do
     before do
       click_on 'New'
       fill_in 'statement_quote', with: 'New Quote'
-      fill_in 'audio_file_file_link', with: 'http://iluvu.de/hello_its_me.mp3'
+      fill_in 'statement_audio_file_attributes_file_link', with: 'http://iluvu.de/hello_its_me.mp3'
       select user.full_name, from: 'statement_user_id'
       select panel.title, from: 'statement_panel_id'
     end

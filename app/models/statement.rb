@@ -5,6 +5,7 @@ class Statement < ApplicationRecord
   acts_as_paranoid
   has_one :audio_file, dependent: :destroy
   has_one :text_record, dependent: :destroy
+  has_one :transcription, dependent: :destroy
   accepts_nested_attributes_for :audio_file, :text_record
   has_one :sent_comment, class_name: 'Comment', foreign_key: 'sender_id'
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
@@ -18,6 +19,7 @@ class Statement < ApplicationRecord
   delegate :title, to: :panel, prefix: true
   delegate :file_link, to: :audio_file, prefix: true
   delegate :name, to: :organisation, prefix: true
+  delegate :status, to: :transcription, prefix: true
 
   enum status: { pending: 0, accepted: 1, rejected: 2 }
 

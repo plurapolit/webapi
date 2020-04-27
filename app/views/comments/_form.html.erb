@@ -21,7 +21,7 @@
     </div>
     <%=f.error_span(:panel_id) %>
   </div>
-  <%= fields_for :audio_file, comment.audio_file do |audio_file_fields| %>
+  <%= f.fields_for :audio_file do |audio_file_fields| %>
     <div class="form-group">
       <%= f.label :file_link, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
