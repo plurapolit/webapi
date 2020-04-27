@@ -20,10 +20,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Statement.new(statement_params)
-    @comment.build_audio_file(audio_file_params)
     @comment.build_sent_comment(comment_params)
     if @comment.save!
-      @comment.audio_file.save!
       @comment.sent_comment.save!
       redirect_to comments_path, notice: 'Comment was successfully created.'
     else
@@ -68,19 +66,12 @@ class CommentsController < ApplicationController
   def statement_params
     params.require(:statement).permit(
       :audio_file_id, :user_id, :quote,
-      :status, audio_file: %i[file_link duration_seconds]
+      :status, audio_file_attributes: %i[id file_link duration_seconds statement_id]
     ).merge(panel_id: recipient_panel_id)
   end
 
   def recipient_panel_id
     Statement.find(params[:recipient_statement][:id]).panel_id
-  end
-
-  def audio_file_params
-    {
-      file_link: params[:audio_file][:file_link],
-      duration_seconds: params[:audio_file][:duration_seconds]
-    }
   end
 
   def comment_params
