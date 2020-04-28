@@ -20,7 +20,7 @@ module Webapi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3000', 'http://localhost:3004',
+        origins 'http://localhost:3000', 'http://localhost:45678',
                 %r{https?://\S*plurapolit.de}
         resource '*', headers: :any, methods: %i[delete get post put options]
       end
