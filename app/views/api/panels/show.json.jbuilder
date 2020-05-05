@@ -2,7 +2,7 @@
 
 json.category @category
 json.category_avatar attached_image_url(@category.avatar)
-json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
+json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :is_battle?, :created_at
 json.panel_avatar attached_image_url(@panel.avatar)
 
 num_experts = 1
