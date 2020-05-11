@@ -11,6 +11,7 @@ class Statement < ApplicationRecord
   has_one :received_comment, class_name: 'Comment', foreign_key: 'recipient_id'
   has_many :likes, dependent: :destroy
   has_many :user_audio_trackings, dependent: :destroy
+  has_many :click_trackings
 
   belongs_to :panel
   belongs_to :user

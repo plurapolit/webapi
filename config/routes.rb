@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :slugs, only: :index
     resources :feedbacks, only: :create
     resources :user_audio_trackings, only: %i[create update]
+    resources :click_trackings, only: :create
     get 'authenticate', to: 'pages#authenticate'
   end
 
