@@ -14,6 +14,11 @@ module Api
         resource.save
         if resource.persisted?
           if resource.active_for_authentication?
+            SendgridUserSyncJob.perform_later(
+              email: resource.email,
+              first_name: resource.first_name,
+              last_name: resource.last_name
+            )
             sign_up(resource_name, resource)
             render_create_json
           else
