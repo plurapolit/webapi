@@ -22,7 +22,7 @@
     </div>
     <%=f.error_span(:panel_id) %>
   </div>
-  <%= fields_for :audio_file, statement.audio_file do |audio_file_fields| %>
+  <%= f.fields_for :audio_file do |audio_file_fields| %>
     <div class="form-group">
       <%= f.label :file_link, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
@@ -54,7 +54,7 @@
   <div class="form-group">
     <%= f.label :status, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= select_tag :status, options_for_select(Statement.statuses) %>
+      <%= f.select :status, options_for_select(Statement.statuses.keys.map {|role| [role.titleize,role]}) %>
     </div>
     <%=f.error_span(:status) %>
   </div>

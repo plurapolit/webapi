@@ -2,7 +2,7 @@
 
 json.category @category
 json.category_avatar attached_image_url(@category.avatar)
-json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
+json.panel @panel, :id, :title, :short_title, :font_color, :slug, :description, :is_battle?, :created_at
 json.panel_avatar attached_image_url(@panel.avatar)
 
 num_experts = 1
@@ -16,6 +16,9 @@ json.expert_statements @statements_from_experts do |statement|
     json.liked_by_current_user statement.liked_by?(current_user)
   end
   json.statement_audio_file statement.audio_file, :file_link, :duration_seconds
+  if statement.transcription.present? && statement.transcription.accepted?
+    json.transcription statement.transcription, :content
+  end
   json.intro statement.intro, :audio_file_link, :file_name if statement.intro.present?
   user = statement.user
   json.user user, :full_name, :role, :biography, :website_link, :twitter_handle, :facebook_handle, :linkedin_handle

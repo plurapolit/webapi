@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class StatementsController < ApplicationController
-  before_action :set_statement, only: %i[edit update destroy accept reject create_intro]
+  before_action :set_statement, only: %i[edit update destroy accept reject create_intro create_transcription]
 
   def index
-    @statements = Statement.without_comments.includes(%i[panel user audio_file intro]).order(created_at: :desc)
+    @statements = Statement.without_comments
+                           .includes(%i[panel user audio_file intro transcription])
+                           .order(created_at: :desc)
   end
 
   def new
@@ -16,9 +18,7 @@ class StatementsController < ApplicationController
 
   def create
     @statement = Statement.new(statement_params)
-    @statement.build_audio_file(audio_file_params)
     if @statement.save!
-      @statement.audio_file.save!
       redirect_to statements_path, notice: 'Statement was successfully created.'
     else
       render :new
@@ -53,6 +53,11 @@ class StatementsController < ApplicationController
     redirect_to statements_path, notice: 'Intro for statement was created.'
   end
 
+  def create_transcription
+    TranscriptionJob.perform_later(@statement.id)
+    redirect_to statements_path, notice: 'Transcription job started.'
+  end
+
   private
 
   def set_statement
@@ -60,14 +65,7 @@ class StatementsController < ApplicationController
   end
 
   def statement_params
-    params.require(:statement).permit(:panel_id, :audio_file_id, :user_id, :quote,
-                                      :status, audio_file: %i[file_link duration_seconds])
-  end
-
-  def audio_file_params
-    {
-      file_link: params[:audio_file][:file_link],
-      duration_seconds: params[:audio_file][:duration_seconds]
-    }
+    params.require(:statement).permit(:id, :panel_id, :audio_file_id, :user_id, :quote,
+                                      :status, audio_file_attributes: %i[id statement_id file_link duration_seconds])
   end
 end

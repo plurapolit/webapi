@@ -4,7 +4,7 @@ json.categories @categories do |category|
   json.category category, :id, :name, :background_color, :created_at
   json.category_avatar attached_image_url(category.avatar)
   json.panels category.panels.order('updated_at DESC') do |panel|
-    json.panel panel, :id, :title, :short_title, :font_color, :slug, :description, :created_at
+    json.panel panel, :id, :title, :short_title, :font_color, :slug, :description, :is_battle?, :created_at
     json.panel_avatar attached_image_url(panel.avatar)
     json.experts panel.statements.from_experts.without_comments.shuffle do |statement|
       json.full_name statement.user.full_name
