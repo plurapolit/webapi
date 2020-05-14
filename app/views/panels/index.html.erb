@@ -43,6 +43,13 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_panel_path(panel), :class => 'btn btn-default btn-xs' %>
+          <% unless panel.deactivated %>
+            <%= link_to 'deactivate',
+                        deactivate_panel_path(panel),
+                        :class => 'btn btn-default btn-xs' ,
+                        method: :patch
+            %>
+          <% end %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       panel_path(panel),
                       :method => :delete,

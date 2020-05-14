@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   authenticate :admin do
     root to: 'pages#home'
     resources :users, except: [:show]
-    resources :panels, except: [:show]
+    resources :panels, except: [:show] do
+      member do
+        patch :deactivate
+      end
+    end
     resources :categories, except: [:show]
     resources :organisations, except: [:show]
     resources :feedbacks, only: :index

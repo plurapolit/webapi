@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PanelsController < ApplicationController
-  before_action :set_panel, only: %i[edit update destroy]
+  before_action :set_panel, only: %i[edit update destroy deactivate]
 
   def index
     @panels = Panel.with_attached_avatar
@@ -34,6 +34,14 @@ class PanelsController < ApplicationController
   def destroy
     @panel.destroy
     redirect_to panels_path, notice: 'Panel was successfully destroyed.'
+  end
+
+  def deactivate
+    if @panel.update(deactivated: true)
+      redirect_to panels_path, notice: 'Panel was successfully deactivated.'
+    else
+      redirect_to panels_path, alert: @panel.errors
+    end
   end
 
   private
