@@ -140,6 +140,8 @@ BODY:
 		}
 	}
 ```
+| HTTP Method | Endpoint  |  Description | Notes | Desired status code |
+|---|---|---|---|---|
 |POST|`/api/user_audio_trackings/`|Sends user audio tracking| NO BEARER neccessary, user_id optional, is_intro only neccessary if it is an intro | Should return 201 |
 ```
 BODY:
@@ -151,12 +153,28 @@ BODY:
     "is_intro": true
   }
 ```
+| HTTP Method | Endpoint  |  Description | Notes | Desired status code |
+|---|---|---|---|---|
 |PUT|`/api/user_audio_trackings/:id`|Updates user audio tracking| NO BEARER neccessary | Should return 204 |
 ```
 BODY:
   {
     "current_position_in_seconds": 80,
     "playtime_in_seconds": 80
+  }
+```
+| HTTP Method | Endpoint  |  Description | Notes | Desired status code |
+|---|---|---|---|---|
+|POST|`/api/click_trackings/`|Sends tracking info| NO BEARER neccessary, user_id optional, statement_id optional | Should return 201 |
+```
+BODY:
+  {
+    "click_tracking": {
+      "user_id": 1,
+      "statement_id": 1,
+      "event": "twitter",
+      "information": "addition information"
+    }
   }
 ```
 
