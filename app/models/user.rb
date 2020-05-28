@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  after_create :sync_user_to_sendgrid, unless: :expert?
   belongs_to :organisation, optional: true
   belongs_to :age_range, optional: true
   delegate :name, to: :organisation, prefix: true, allow_nil: true
@@ -8,6 +9,7 @@ class User < ApplicationRecord
   has_many :likes
   has_many :statements
   has_many :user_audio_trackings
+  has_many :click_trackings
 
   has_one_attached :avatar
   validates :avatar, content_type: {
@@ -25,5 +27,13 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def sync_user_to_sendgrid
+    SendgridUserSyncJob.perform_later(
+      email: email,
+      first_name: first_name,
+      last_name: last_name
+    )
   end
 end

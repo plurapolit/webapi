@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   authenticate :admin do
     root to: 'pages#home'
     resources :users, except: [:show]
-    resources :panels, except: [:show]
+    resources :panels, except: [:show] do
+      member do
+        patch :deactivate
+      end
+    end
     resources :categories, except: [:show]
     resources :organisations, except: [:show]
     resources :feedbacks, only: :index
@@ -38,6 +42,7 @@ Rails.application.routes.draw do
     resources :slugs, only: :index
     resources :feedbacks, only: :create
     resources :user_audio_trackings, only: %i[create update]
+    resources :click_trackings, only: :create
     get 'authenticate', to: 'pages#authenticate'
   end
 
