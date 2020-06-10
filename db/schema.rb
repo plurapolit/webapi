@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_103342) do
+ActiveRecord::Schema.define(version: 2020_06_10_201554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,18 @@ ActiveRecord::Schema.define(version: 2020_05_11_103342) do
     t.index ["category_id"], name: "index_panels_on_category_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.string "invite_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms_users", id: false, force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.bigint "user_id", null: false
+  end
+
   create_table "statements", force: :cascade do |t|
     t.bigint "panel_id", null: false
     t.bigint "user_id", null: false
@@ -164,6 +176,8 @@ ActiveRecord::Schema.define(version: 2020_05_11_103342) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_text_records_on_room_id"
     t.index ["statement_id"], name: "index_text_records_on_statement_id"
   end
 
