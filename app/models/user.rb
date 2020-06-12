@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :statements
   has_many :user_audio_trackings
   has_many :click_trackings
+  has_and_belongs_to_many :rooms
 
   has_one_attached :avatar
   validates :avatar, content_type: {

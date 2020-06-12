@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     end
     resources :panels, only: %i[show index]
     resources :slugs, only: :index
+    resources :rooms, only: %i[index create]
     resources :feedbacks, only: :create
     resources :user_audio_trackings, only: %i[create update]
     resources :click_trackings, only: :create
