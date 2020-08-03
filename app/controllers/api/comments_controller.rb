@@ -72,7 +72,7 @@ module Api
     end
 
     def text_record_params
-      { content: params[:text_record][:content] }
+      { content: params[:text_record][:content], room_id: params[:room_id] }
     end
 
     def created_json(comment)
