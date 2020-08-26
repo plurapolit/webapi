@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Click Trackings requests', type: :request do
   let(:headers) { { 'CONTENT_TYPE': 'application/json' } }
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let!(:panel) { create :panel, category: category }
   let(:user) { create :user }
   let(:statement) { create :statement, panel: panel, user: user }

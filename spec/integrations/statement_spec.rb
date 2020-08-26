@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Statement' do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let(:panel) { create :panel, category: category }
   let(:user) { create :user }
   let(:statement) { create :statement, user: user, panel: panel }
