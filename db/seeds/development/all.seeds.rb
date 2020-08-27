@@ -20,9 +20,14 @@ puts 'Creating organisations'
   o.avatar.attach(io: File.open(seed_fixtures_path('party.png')), filename: 'party.png')
 end
 
-puts 'Creating categories'
+puts 'Create region'
 3.times do
-  c = Category.create!(name: Faker::Restaurant.unique.name, background_color: Faker::Color.hex_color)
+  r = Region.create!(name: Faker::Address.unique.city)
+end
+
+puts 'Creating categories'
+9.times do
+  c = Category.create!(name: Faker::Restaurant.unique.name, background_color: Faker::Color.hex_color, region_id: rand(1..3))
   c.avatar.attach(io: File.open(seed_fixtures_path('environment.jpg')), filename: 'environment.jpg')
 end
 
