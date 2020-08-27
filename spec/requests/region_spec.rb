@@ -9,16 +9,16 @@ RSpec.describe 'Regions requests', type: :request do
   let!(:panel) { create :panel, category: category }
 
   describe 'index' do
-      it 'shows all regions' do
-        create(:region, name: 'Region 2')
-        get '/api/regions'
-        expect(JSON.parse(body)['regions'].size == 2)
-      end
+    it 'shows all regions' do
+      create(:region, name: 'Region 2')
+      get '/api/regions'
+      expect(JSON.parse(body)['regions'].size == 2)
+    end
   end
 
   describe 'show' do
     before do
-        get "/api/regions/#{region.id}"
+      get "/api/regions/#{region.id}"
     end
 
     it 'shows the region information' do
