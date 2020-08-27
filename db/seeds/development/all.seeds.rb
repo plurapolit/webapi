@@ -22,12 +22,13 @@ end
 
 puts 'Create region'
 3.times do
-  r = Region.create!(name: Faker::Address.unique.city)
+  Region.create!(name: Faker::Address.unique.city)
 end
 
 puts 'Creating categories'
 9.times do
-  c = Category.create!(name: Faker::Restaurant.unique.name, background_color: Faker::Color.hex_color, region_id: rand(1..3))
+  c = Category.create!(name: Faker::Restaurant.unique.name,
+                       background_color: Faker::Color.hex_color, region_id: rand(1..3))
   c.avatar.attach(io: File.open(seed_fixtures_path('environment.jpg')), filename: 'environment.jpg')
 end
 
