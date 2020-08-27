@@ -59,7 +59,7 @@ BODY:
 		"panel_id": "1",
 		"quote": "This is the statement about"
 	},
-	
+
 	"audio_file": {
 		"file_link": "https://mysong.de/test.mp3",
 		"duration_seconds": "99"
@@ -126,6 +126,8 @@ OR (if it is a text comment)
 |GET|`/api/statements/:statement_id/comments/`|Get all comments for a statement| | Should return 200 |
 |GET|`/api/panels/:id`|Get a specific panel with all statements and # of comments and likes| | Should return 200 |
 |GET|`/api/panels/`|Get all categories and panels| | Should return 200 |
+|GET| `api/regions/`|Get all regions||Should return 200
+|GET| `api/regions/:id`|Get all categories and panels for specific region||Should return 200
 |POST|`/api/statements/:statement_id/likes`|Likes a statement| Bearer token must be present in header | Should return 201 |
 |DELETE|`/api/statements/:statement_id/likes`|Unlikes a statement| Bearer token must be present in header | Should return 204 |
 |GET|`/api/slugs`|Get all slugs with corresponding panel id||Should return 200|
