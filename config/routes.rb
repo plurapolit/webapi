@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       delete 'likes', to: 'likes#destroy'
       resources :likes, only: :create
     end
+    resources :regions, only: %i[show index]
     resources :panels, only: %i[show index]
     resources :slugs, only: :index
     resources :rooms, only: %i[index create]
