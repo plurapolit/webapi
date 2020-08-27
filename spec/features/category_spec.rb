@@ -3,15 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Category Features', type: :feature do
+  let(:region) { create :region }
+
   before do
     sign_in_admin
-    create(:category)
+    create(:category, region: region)
     visit '/categories'
   end
 
   context 'when visiting the index page' do
     it 'shows all categories' do
-      create(:category, name: 'Second Category')
+      create(:category, name: 'Second Category', region: region)
       visit '/categories'
       expect(page).to have_content('Test Category').and have_content('Second Category')
     end
@@ -36,6 +38,8 @@ RSpec.describe 'Category Features', type: :feature do
       click_on 'New'
       fill_in 'category_name', with: 'New Name'
       fill_in 'category_background_color', with: '#1a1844'
+      fill_in 'category_background_color', with: '#1a1844'
+      select region.name, from: 'category_region_id'
     end
 
     it 'successfully does create' do

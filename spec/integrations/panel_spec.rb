@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Panel' do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let(:panel) { create :panel, category: category }
 
   it 'has a title' do

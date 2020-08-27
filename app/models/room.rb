@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Room < ApplicationRecord
   before_create :create_invite_code
   has_and_belongs_to_many :users

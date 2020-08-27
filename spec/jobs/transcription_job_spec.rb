@@ -4,7 +4,8 @@ require 'rails_helper'
 require 'sucker_punch/testing/inline'
 
 RSpec.describe 'Transcription Job' do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let(:panel) { create :panel, category: category }
   let(:organisation) { create(:organisation) }
   let(:user) { create :expert, organisation: organisation }
