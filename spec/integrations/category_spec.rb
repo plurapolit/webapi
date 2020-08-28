@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Category' do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
 
   it 'has a name' do
     expect(category.name).to eq('Test Category')

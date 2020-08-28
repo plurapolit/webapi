@@ -6,7 +6,8 @@ RSpec.describe 'Statements requests', type: :request do
   let(:headers) { { 'CONTENT_TYPE': 'application/json' } }
   let(:user) { create :user }
   let!(:different_user) { create :user, email: 'different@email.com' }
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let!(:panel) { create :panel, category: category }
 
   describe 'creation' do

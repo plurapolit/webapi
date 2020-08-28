@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Panel Features', type: :feature do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
 
   before do
     sign_in_admin

@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Comments Features', type: :feature do
-  let(:category) { create :category }
+  let(:region) { create :region }
+  let(:category) { create :category, region: region }
   let(:panel) { create :panel, category: category }
   let(:organisation) { create(:organisation) }
   let(:user) { create :expert, organisation: organisation }
