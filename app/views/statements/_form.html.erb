@@ -18,7 +18,7 @@
   <div class="form-group">
     <%= f.label :panel_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= collection_select(:statement, :panel_id, Panel.all, :id, :title, prompt: true, class: 'form-control') %>
+      <%= collection_select(:statement, :panel_id, Panel.order(:title), :id, :title, {prompt: true}, {class: 'js-searchable form-control'}) %>
     </div>
     <%=f.error_span(:panel_id) %>
   </div>
@@ -40,7 +40,7 @@
   <div class="form-group">
     <%= f.label :user_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= collection_select(:statement, :user_id, User.expert, :id, :full_name, prompt: true, class: 'form-control') %>
+      <%= collection_select(:statement, :user_id, User.expert.order(:first_name), :id, :full_name, {prompt: true}, {class: 'form-control js-searchable'}) %>
     </div>
     <%=f.error_span(:user_id) %>
   </div>
@@ -54,7 +54,7 @@
   <div class="form-group">
     <%= f.label :status, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :status, options_for_select(Statement.statuses.keys.map {|role| [role.titleize,role]}) %>
+      <%= f.select(:status, options_for_select(Statement.statuses.keys.map { |role| [role.titleize,role]})) %>
     </div>
     <%=f.error_span(:status) %>
   </div>
