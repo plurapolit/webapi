@@ -18,7 +18,7 @@
   <div class="form-group">
     <%= f.label :category_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= collection_select(:panel, :category_id, Category.all, :id, :name, prompt: true, class: 'form-control') %>
+      <%= collection_select(:panel, :category_id, Category.order(:name), :id, :name, {prompt: true}, {class: 'form-control js-searchable'}) %>
     </div>
     <%=f.error_span(:category_id) %>
   </div>
@@ -53,7 +53,7 @@
   <div class="form-group">
     <%= f.label :avatar, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.file_field :avatar, :class => 'form-control', accept: 'image/jpeg,image/jpg,image/png,image/svg+xml' %>
+      <%= f.file_field :avatar, accept: 'image/jpeg,image/jpg,image/png,image/svg+xml' %>
     </div>
     <%=f.error_span(:avatar) %>
   </div>
