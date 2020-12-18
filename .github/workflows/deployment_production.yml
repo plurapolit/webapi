@@ -15,7 +15,7 @@ jobs:
         run: docker build -t 837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi:latest .
 
       - name: Log into ECR
-        run: aws ecr get-login-password | docker login --username AWS --password-stdin 837134151110.dkr.ecr.eu-central-1.amazonaws.com
+        run: aws ecr get-login-password | docker login --username AWS --region eu-central-1 --password-stdin 837134151110.dkr.ecr.eu-central-1.amazonaws.com
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
