@@ -9,7 +9,7 @@ class UserMailer < Devise::Mailer
     @token = token
     @full_name = "#{record.first_name} #{record.last_name}"
     opts[:subject] = 'Willkommen bei PluraPolit'
-    devise_mail(record, :confirmation_instructions, opts)
+    devise_mail(record, :confirmation_instructions, opts) unless record.email.match(/plurapolit.de/)
   end
 
   def reset_password_instructions(record, token, opts = {})

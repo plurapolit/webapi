@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: chrislennon/action-aws-cli@v1.1
 
       - name: Build image
         run: docker build -t 837134151110.dkr.ecr.eu-central-1.amazonaws.com/webapi:latest .
